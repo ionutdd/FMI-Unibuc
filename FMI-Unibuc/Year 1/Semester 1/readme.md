@@ -1,4 +1,4 @@
-Year 1 - Semester 1
+Year 1 - Semester 1 (Oct 2022 - Feb 2023)
 
 Educational Plan:
 
