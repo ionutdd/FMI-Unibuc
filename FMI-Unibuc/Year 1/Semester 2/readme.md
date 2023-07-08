@@ -14,7 +14,7 @@ Educational Plan:
 | Educatie Fizica                                  | - | 1 | - | - | V  |    2    |
 
 
-\
+ \
 
 
 Here are the links towards the repositories for this semester: \
