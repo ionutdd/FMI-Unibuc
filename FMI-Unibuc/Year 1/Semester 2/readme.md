@@ -15,7 +15,7 @@ Educational Plan:
 
 
 \
-\
+
 
 Here are the links towards the repositories for this semester: \
   Baze de Date (Databases): https://github.com/ionutdd/Databases \
