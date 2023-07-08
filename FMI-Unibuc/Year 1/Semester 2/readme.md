@@ -13,3 +13,10 @@ Educational Plan:
 | Competente De Baza Intr-o Limba Straina          | - | 1 | - | - | V  |    2    |
 | Educatie Fizica                                  | - | 1 | - | - | V  |    2    |
 
+
+Here are the links towards the repositories for this semester:
+  Baze de Date (Databases): https://github.com/ionutdd/Databases
+  Structuri de Date (Data Structures): https://github.com/ionutdd/Data_Structures_lab
+  Limbaje Formale si Automate (Formal Languages and Automata): https://github.com/ionutdd/LFA
+  Progamare Orientata pe Obiecte (Object Orientated Programming): https://github.com/ionutdd/OOP_lab
+  Tehnici Web (Web Development): https://github.com/ionutdd/TW_lab   and   https://github.com/ionutdd/Project_TW
