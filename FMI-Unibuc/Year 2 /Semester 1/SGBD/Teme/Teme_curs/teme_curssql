@@ -1,0 +1,217 @@
+CREATE TABLE emp_ido 
+AS SELECT * FROM employees;
+
+SELECT * FROM emp_ido;
+
+DESCRIBE emp_ido;
+
+DROP TABLE emp_ido;
+
+
+SET SERVEROUTPUT ON;
+
+
+ALTER SESSION SET 
+NLS_DATE_LANGUAGE = 'Romanian';
+
+DECLARE
+ sir_4 NVARCHAR2(25) := 'т???ю`\>/?@^   egrtfhefaa';
+BEGIN 
+  DBMS_OUTPUT.PUT_LINE (sir_4);
+END;
+
+
+DECLARE
+ sir_1 CHAR(25) := 'т???ю`\>/?@^   egrtfhefaa';  --25 de caractere
+ sir_2 VARCHAR2(200) := 'т???ю`\>/?@^   egrtfhefaa';
+ sir_3 NCHAR(50) := 'т???ю`\>/?@^   egrtfhefaa';
+ sir_4 NVARCHAR2(25) := 'т???ю`\>/?@^   egrtfhefaa';
+BEGIN
+ DBMS_OUTPUT.PUT_LINE (sir_1);
+ DBMS_OUTPUT.PUT_LINE (sir_2);
+ DBMS_OUTPUT.PUT_LINE (sir_3);
+ DBMS_OUTPUT.PUT_LINE (sir_4);
+    IF sir_1 = sir_2 THEN
+     DBMS_OUTPUT.PUT_LINE ('sir_1 = sir_2');
+     ELSE
+     DBMS_OUTPUT.PUT_LINE ('sir_1 != sir_2' );
+     END IF;
+     
+     
+     IF sir_1 = sir_3 THEN
+     DBMS_OUTPUT.PUT_LINE ('sir_1 = sir_3');
+     ELSE
+     DBMS_OUTPUT.PUT_LINE ('sir_1 != sir_3' );
+     END IF;
+     
+     
+     IF sir_1 = sir_4 THEN
+     DBMS_OUTPUT.PUT_LINE ('sir_1 = sir_4');
+     ELSE
+     DBMS_OUTPUT.PUT_LINE ('sir_1 != sir_4' );
+     END IF;
+     
+     
+     IF sir_2 = sir_4 THEN
+     DBMS_OUTPUT.PUT_LINE ('sir_2 = sir_4');
+     ELSE
+     DBMS_OUTPUT.PUT_LINE ('sir_2 != sir_4' );
+     END IF;
+     
+      IF sir_3 = sir_4 THEN
+     DBMS_OUTPUT.PUT_LINE ('sir_3 = sir_4');
+     ELSE
+     DBMS_OUTPUT.PUT_LINE ('sir_3 != sir_4' );
+     END IF;
+END;
+
+CREATE TABLE tabela (
+    id NUMBER,
+    blob_data BLOB,
+    clob_data CLOB,
+    nclob_data NCLOB,
+    bfile_data BFILE
+);
+
+INSERT INTO tabela (id, blob_data, clob_data, nclob_data, bfile_data)
+VALUES (
+    1,
+    EMPTY_BLOB(), -- BLOB
+    'This is a CLOB value.', 
+    '?i asta este un NCLOB.', 
+    BFILENAME('C:\Users\ionut', 'lab1') 
+);
+
+DESCRIBE tabela;
+
+SELECT * FROM tabela;
+
+
+--BLOB
+
+UPDATE tabela
+SET blob_data = (SELECT BFILENAME('C:\Users\ionut', 'jpgImg') FROM DUAL)
+WHERE id = 1;
+COMMIT;
+
+SELECT blob_data FROM tabela WHERE id = 1;
+
+
+--CLOB
+
+UPDATE tabela
+SET clob_data = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+WHERE id = 1;
+COMMIT;
+
+SELECT clob_data FROM tabela WHERE id = 1;
+
+
+--CLOB
+
+UPDATE tabela
+SET nclob_data = 'ттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттттт'
+WHERE id = 1;
+COMMIT;
+
+
+
+SELECT nclob_data FROM tabela WHERE id = 1;
+
+
+--Bfile
+
+
+UPDATE tabela
+SET bfile_data = BFILENAME('C:\Users\ionut', 'lab1.txt')
+WHERE id = 1;
+COMMIT;
+
+SELECT bfile_data FROM tabela WHERE id = 1;
+
+
+SELECT * FROM tabela;
+
+
+
+DECLARE
+  id NUMBER(6);
+BEGIN
+  SELECT employee_id
+  INTO id
+  FROM emp_ido
+  WHERE employee_id = 1000;
+  DBMS_OUTPUT.PUT_LINE(id);
+  
+  SELECT employee_id
+  INTO id
+  FROM emp_ido
+  WHERE employee_id = 1001;
+  DBMS_OUTPUT.PUT_LINE(id);
+  
+  
+  SELECT employee_id
+  INTO id
+  FROM emp_ido
+  WHERE employee_id = 1002;
+  DBMS_OUTPUT.PUT_LINE(id);
+END;
+
+
+
+
+
+DECLARE
+  id NUMBER(6);
+BEGIN
+  BEGIN
+    SELECT employee_id
+    INTO id
+    FROM emp_ido
+    WHERE employee_id = 1000;
+    DBMS_OUTPUT.PUT_LINE('Employee 1000: ' || id);
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('No data found pentru Employee 1000');
+  END;
+  
+  BEGIN
+    SELECT employee_id
+    INTO id
+    FROM emp_ido
+    WHERE employee_id = 1001;
+    DBMS_OUTPUT.PUT_LINE('Employee 1001: ' || id);
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('No data found pentru Employee 1001');
+  END;
+  
+  BEGIN
+    SELECT employee_id
+    INTO id
+    FROM emp_ido
+    WHERE employee_id = 101;
+    DBMS_OUTPUT.PUT_LINE('Employee 101: ' || id);
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('No data found pentru Employee 101');
+  END;
+  
+  BEGIN
+    SELECT employee_id
+    INTO id
+    FROM emp_ido
+    WHERE employee_id = 1002;
+    DBMS_OUTPUT.PUT_LINE('Employee 1002: ' || id);
+  EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('No data found pentru Employee 1002');
+  END;
+END;
+
+
+
+
+SELECT * FROM emp_ido;
+
+

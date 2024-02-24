@@ -1,0 +1,1627 @@
+SET SERVEROUTPUT ON;
+
+--Cerintele 4 si 5 din proiect:
+
+--Inserarea datelor in tabela Utilizatori
+
+CREATE TABLE Utilizatori 
+(
+    id_utilizator int NOT NULL,
+    username varchar2(25) NOT NULL UNIQUE,
+    email varchar2(100) NOT NULL UNIQUE,
+    parola varchar2(25) NOT NULL,
+    PRIMARY KEY(id_utilizator)
+);
+
+INSERT INTO Utilizatori 
+VALUES (1, 'ionut', 'ionut@gmail.com', 'ionut');
+INSERT INTO Utilizatori 
+VALUES (2, 'alex', 'ale@gmail.com', 'pal');
+INSERT INTO Utilizatori 
+VALUES (3, 'maremaestru', 'maremaestru@yahoo.com', 'GM');
+INSERT INTO Utilizatori 
+VALUES (4, 'queen', 'qel@gmail.com', 'iamqueen');
+INSERT INTO Utilizatori 
+VALUES (5, 'd4player', 'plic@gmail.com', 'londonsystem');
+
+DESCRIBE Utilizatori;
+SELECT * 
+FROM Utilizatori;
+
+
+--Inserarea datelor in tabela Utilizatori
+
+CREATE TABLE Rating 
+(
+    id_rating int NOT NULL,
+    timp_de_joc varchar2(10) NOT NULL,
+    PRIMARY KEY(id_rating)
+);
+
+INSERT INTO Rating 
+VALUES (1500, 'clasic');
+INSERT INTO Rating 
+VALUES (2500, 'rapid');
+INSERT INTO Rating 
+VALUES (250, 'bullet');
+INSERT INTO Rating 
+VALUES (1750, 'blitz');
+INSERT INTO Rating 
+VALUES (1867, 'blitz');
+INSERT INTO Rating 
+VALUES (2000, 'blitz');
+INSERT INTO Rating 
+VALUES (3175, 'blitz');
+
+DESCRIBE Rating;
+SELECT * 
+FROM Rating;
+
+
+--Inserarea datelor in tabela Conversatii
+
+CREATE TABLE Conversatii 
+(
+    id_conversatie int NOT NULL,
+    id_utilizator1 int NOT NULL,
+    id_utilizator2 int NOT NULL,
+    PRIMARY KEY(id_conversatie),
+    FOREIGN KEY(id_utilizator1) REFERENCES Utilizatori(id_utilizator),
+    FOREIGN KEY(id_utilizator2) REFERENCES Utilizatori(id_utilizator)
+);
+
+INSERT INTO Conversatii 
+VALUES (1, 1, 2);
+INSERT INTO Conversatii 
+VALUES (2, 1, 3);
+INSERT INTO Conversatii 
+VALUES (3, 1, 4);
+INSERT INTO Conversatii 
+VALUES (4, 1, 5);
+INSERT INTO Conversatii 
+VALUES (5, 2, 3);
+
+
+DESCRIBE Conversatii;
+SELECT * 
+FROM Conversatii;
+
+
+
+--Inserarea datelor in tabela Puzzles
+
+CREATE TABLE Puzzles 
+(
+    id_puzzle int NOT NULL,
+    solutie varchar2(250) NOT NULL,
+    pozitie varchar2(250) NOT NULL,
+    rating int NOT NULL,
+    PRIMARY KEY(id_puzzle)
+);
+
+INSERT INTO Puzzles 
+VALUES (1, 'Ra8', 'Kd6 Ra1 Kd8', 100);
+INSERT INTO Puzzles 
+VALUES (2, 'Qd7', 'Kd6 Qc6 Kd8 Rc8 Re8', 150);
+INSERT INTO Puzzles 
+VALUES (3, 'Qa8 Rc8 Qc8', 'Kh6 Qa2 Rc3 Kh8', 200);
+INSERT INTO Puzzles 
+VALUES (4, 'Kg7 h4 Kf6 h3 Ke7 h2 c7 Kb7 Kd7 h1=Q c8=Q', 'Kh8 c6 Ka6 h5', 2500);
+INSERT INTO Puzzles 
+VALUES (5, 'Kc6 Kc8 d6 Kd8 d7 Ke7 Kc7 Ke6 d8=Q', 'Kd6 d5 Kd8', 1000);
+
+
+DESCRIBE Puzzles;
+SELECT * 
+FROM Puzzles;
+
+
+--Inserarea datelor in tabela Prietenie
+
+CREATE TABLE Prietenie
+(
+    id_prietenie int NOT NULL,
+    id_utilizator1 int NOT NULL,
+    id_utilizator2 int NOT NULL,
+    data_inceput date,
+    PRIMARY KEY(id_prietenie),
+    FOREIGN KEY(id_utilizator1) REFERENCES Utilizatori(id_utilizator),
+    FOREIGN KEY(id_utilizator2) REFERENCES Utilizatori(id_utilizator)
+);
+
+INSERT INTO Prietenie 
+VALUES (1, 1, 4, to_date('31-03-2023', 'dd-mm-yyyy'));
+INSERT INTO Prietenie 
+VALUES (2, 1, 5, to_date('30-04-2023', 'dd-mm-yyyy'));
+INSERT INTO Prietenie 
+VALUES (3, 2, 3, to_date('19-05-2023', 'dd-mm-yyyy'));
+INSERT INTO Prietenie 
+VALUES (4, 2, 4, to_date('30-06-2022', 'dd-mm-yyyy'));
+INSERT INTO Prietenie 
+VALUES (5, 3, 5, to_date('18-08-2022', 'dd-mm-yyyy'));
+
+
+DESCRIBE Prietenie;
+SELECT * 
+FROM Prietenie;
+
+
+--Inserarea datelor in tabela Turnee
+
+CREATE TABLE Turnee
+(
+    id_turneu int NOT NULL,
+    nr_participanti int NOT NULL,
+    data_start date NOT NULL,
+    durata int NOT NULL,
+    PRIMARY KEY(id_turneu)
+);
+
+INSERT INTO Turnee 
+VALUES (1, 5, to_date('31-03-2023', 'dd-mm-yyyy'), 7);
+INSERT INTO Turnee 
+VALUES (2, 3, to_date('01-04-2023', 'dd-mm-yyyy'), 3);
+INSERT INTO Turnee 
+VALUES (3, 4, to_date('31-01-2023', 'dd-mm-yyyy'), 12);
+INSERT INTO Turnee 
+VALUES (4, 2, to_date('28-02-2023', 'dd-mm-yyyy'), 8);
+INSERT INTO Turnee 
+VALUES (5, 5, to_date('29-02-2020', 'dd-mm-yyyy'), 15);
+
+DESCRIBE Turnee;
+SELECT * 
+FROM Turnee;
+
+
+--Inserarea datelor in tabela Notificari
+
+CREATE TABLE Notificari
+(
+    id_notificare int NOT NULL,
+    titlu varchar2(20) NOT NULL,
+    PRIMARY KEY(id_notificare)
+);
+
+INSERT INTO Notificari 
+VALUES (1, 'Turneu in 2 zile');
+INSERT INTO Notificari 
+VALUES (2, 'Turneu Titled');
+INSERT INTO Notificari 
+VALUES (3, 'Cerere prietenie');
+INSERT INTO Notificari 
+VALUES (4, 'Felicitari!');
+INSERT INTO Notificari 
+VALUES (5, 'Turneu in 5 zile');
+
+DESCRIBE Notificari;
+SELECT * 
+FROM Notificari;
+
+
+--Inserarea datelor in tabela Mesaj
+
+CREATE TABLE Mesaj
+(
+    id_mesaj int NOT NULL,
+    id_notificare int NOT NULL,
+    text varchar2(1000) NOT NULL,
+    PRIMARY KEY(id_mesaj),
+    FOREIGN KEY(id_notificare) REFERENCES Notificari(id_notificare)
+);
+
+INSERT INTO Mesaj 
+VALUES (1, 1, 'Inregistreaza-te acum la turneul "Titled Tuesday" care incepe in 2 zile!');
+INSERT INTO Mesaj 
+VALUES (2, 2, 'Turneu in care participa maestri incep in curand!');
+INSERT INTO Mesaj 
+VALUES (3, 3, 'Ai primit o cerere de prietenie de la d4player!');
+INSERT INTO Mesaj 
+VALUES (4, 4, 'Ai reusit sa obtii un elo record. Felicitari!');
+INSERT INTO Mesaj 
+VALUES (5, 5, 'Au mai ramas doar 5 zile in care te poti inscrie la turneul nostru!');
+
+DESCRIBE Mesaj;
+SELECT * 
+FROM Mesaj;
+
+
+
+--Inserarea datelor in tabela Plati
+
+CREATE TABLE Plati
+(
+    id_plata int NOT NULL,
+    id_utilizator int NOT NULL,
+    suma int NOT NULL,
+    data_tranzactie date NOT NULL,
+    PRIMARY KEY(id_plata),
+    FOREIGN KEY(id_utilizator) REFERENCES Utilizatori(id_utilizator)
+);
+
+INSERT INTO Plati 
+VALUES (1, 1, 15, to_date('01-01-2023', 'dd-mm-yyyy'));
+INSERT INTO Plati 
+VALUES (2, 1, 20, to_date('01-02-2023', 'dd-mm-yyyy'));
+INSERT INTO Plati 
+VALUES (3, 2, 15, to_date('01-03-2023', 'dd-mm-yyyy'));
+INSERT INTO Plati 
+VALUES (4, 4, 15, to_date('31-01-2023', 'dd-mm-yyyy'));
+INSERT INTO Plati 
+VALUES (5, 1, 10, to_date('01-05-2023', 'dd-mm-yyyy'));
+
+DESCRIBE Plati;
+SELECT * 
+FROM Plati;
+
+
+
+--Inserarea datelor in tabela Partide
+
+CREATE TABLE Partide
+(
+    id_partida int NOT NULL,
+    id_utilizator1 int NOT NULL,
+    id_utilizator2 int NOT NULL,
+    id_analiza int NOT NULL,
+    timp_de_joc varchar2(10) NOT NULL,
+    PRIMARY KEY(id_partida),
+    FOREIGN KEY(id_utilizator1) REFERENCES Utilizatori(id_utilizator),
+    FOREIGN KEY(id_utilizator2) REFERENCES Utilizatori(id_utilizator)
+);
+
+INSERT INTO Partide
+VALUES (1, 1, 2, 1, 'blitz');
+INSERT INTO Partide
+VALUES (2, 1, 3, 2, 'bullet');
+INSERT INTO Partide
+VALUES (3, 1, 4, 3, 'clasic');
+INSERT INTO Partide
+VALUES (4, 1, 5, 4, 'blitz');
+INSERT INTO Partide
+VALUES (5, 2, 3, 5, 'blitz');
+
+DESCRIBE Partide;
+SELECT * 
+FROM Partide;
+
+
+
+--Inserarea datelor in tabela Analiza
+
+CREATE TABLE Analiza
+(
+    id_analiza int NOT NULL,
+    id_partida int NOT NULL,
+    id_mutare int NOT NULL,
+    rezultat_analiza varchar2(3) NOT NULL,
+    PRIMARY KEY(id_analiza),
+    FOREIGN KEY(id_partida) REFERENCES Partide(id_partida)
+);
+
+INSERT INTO Analiza
+VALUES (1, 1, 1, '1-0');
+INSERT INTO Analiza
+VALUES (2, 2, 2, '1/2');
+INSERT INTO Analiza
+VALUES (3, 3, 4, '1-0');
+INSERT INTO Analiza
+VALUES (4, 5, 3, '0-1');
+INSERT INTO Analiza
+VALUES (5, 4, 5, '1/2');
+
+DESCRIBE Analiza;
+SELECT * 
+FROM Analiza;
+
+
+
+--Inserarea datelor in tabela Mutări
+
+CREATE TABLE Mutari
+(
+    id_mutare int NOT NULL,
+    id_partida int NOT NULL,
+    id_utilizator int NOT NULL,
+    nr_mutare int NOT NULL,
+    mutare varchar2(5) NOT NULL,
+    PRIMARY KEY(id_mutare),
+    FOREIGN KEY(id_partida) REFERENCES Partide(id_partida),
+    FOREIGN KEY(id_utilizator) REFERENCES Utilizatori(id_utilizator)
+);
+
+INSERT INTO Mutari
+VALUES (1, 1, 1, 1, 'e4');
+INSERT INTO Mutari
+VALUES (2, 2, 1, 1, 'e5');
+INSERT INTO Mutari
+VALUES (3, 3, 4, 2, 'Nf3');
+INSERT INTO Mutari
+VALUES (4, 4, 5, 3, 'Nf6');
+INSERT INTO Mutari
+VALUES (5, 5, 2, 10, 'O-O-O');
+
+DESCRIBE Mutari;
+SELECT * 
+FROM Mutari;
+
+
+--Inserarea datelor in tabela asociativa UtilizatoriRating
+
+CREATE TABLE UtilizatoriRating
+(
+    id_utilizator int NOT NULL,
+    id_rating int NOT NULL,
+    PRIMARY KEY(id_utilizator, id_rating),
+    FOREIGN KEY(id_utilizator) REFERENCES Utilizatori(id_utilizator),
+    FOREIGN KEY(id_rating) REFERENCES Rating(id_rating)
+);
+
+INSERT INTO UtilizatoriRating
+VALUES (1, 1500);
+INSERT INTO UtilizatoriRating
+VALUES (1, 2500);
+INSERT INTO UtilizatoriRating
+VALUES (2, 2500);
+INSERT INTO UtilizatoriRating
+VALUES (1, 250);
+INSERT INTO UtilizatoriRating
+VALUES (5, 1500);
+INSERT INTO UtilizatoriRating
+VALUES (3, 1867);
+INSERT INTO UtilizatoriRating
+VALUES (3, 3175);
+INSERT INTO UtilizatoriRating
+VALUES (4, 2000);
+INSERT INTO UtilizatoriRating
+VALUES (4, 1750);
+INSERT INTO UtilizatoriRating
+VALUES (5, 3175);
+
+DESCRIBE UtilizatoriRating;
+SELECT * 
+FROM UtilizatoriRating;
+
+
+--Inserarea datelor in tabela asociativa UtilizatoriRating
+
+CREATE TABLE UtilizatoriPuzzles
+(
+    id_utilizator int NOT NULL,
+    id_puzzle int NOT NULL,
+    PRIMARY KEY(id_utilizator, id_puzzle),
+    FOREIGN KEY(id_utilizator) REFERENCES Utilizatori(id_utilizator),
+    FOREIGN KEY(id_puzzle) REFERENCES Puzzles(id_puzzle)
+);
+
+INSERT INTO UtilizatoriPuzzles
+VALUES (1, 1);
+INSERT INTO UtilizatoriPuzzles
+VALUES (1, 2);
+INSERT INTO UtilizatoriPuzzles
+VALUES (2, 1);
+INSERT INTO UtilizatoriPuzzles
+VALUES (1, 3);
+INSERT INTO UtilizatoriPuzzles
+VALUES (5, 4);
+INSERT INTO UtilizatoriPuzzles
+VALUES (3, 4);
+INSERT INTO UtilizatoriPuzzles
+VALUES (3, 5);
+INSERT INTO UtilizatoriPuzzles
+VALUES (4, 5);
+INSERT INTO UtilizatoriPuzzles
+VALUES (4, 1);
+INSERT INTO UtilizatoriPuzzles
+VALUES (5, 2);
+
+DESCRIBE UtilizatoriPuzzles;
+SELECT * 
+FROM UtilizatoriPuzzles;
+
+
+--Inserarea datelor in tabela asociativa UtilizatoriPrietenie
+
+CREATE TABLE UtilizatoriTurnee
+(
+    id_utilizator int NOT NULL,
+    id_turneu int NOT NULL,
+    PRIMARY KEY(id_utilizator, id_turneu),
+    FOREIGN KEY(id_utilizator) REFERENCES Utilizatori(id_utilizator),
+    FOREIGN KEY(id_turneu) REFERENCES Turnee(id_turneu)
+);
+
+INSERT INTO UtilizatoriTurnee
+VALUES (1, 1);
+INSERT INTO UtilizatoriTurnee
+VALUES (1, 2);
+INSERT INTO UtilizatoriTurnee
+VALUES (1, 3);
+INSERT INTO UtilizatoriTurnee
+VALUES (1, 4);
+INSERT INTO UtilizatoriTurnee
+VALUES (1, 5);
+INSERT INTO UtilizatoriTurnee
+VALUES (2, 1);
+INSERT INTO UtilizatoriTurnee
+VALUES (2, 2);
+INSERT INTO UtilizatoriTurnee
+VALUES (2, 3);
+INSERT INTO UtilizatoriTurnee
+VALUES (3, 1);
+INSERT INTO UtilizatoriTurnee
+VALUES (3, 2);
+INSERT INTO UtilizatoriTurnee
+VALUES (3, 3);
+INSERT INTO UtilizatoriTurnee
+VALUES (3, 5);
+INSERT INTO UtilizatoriTurnee
+VALUES (4, 2);
+INSERT INTO UtilizatoriTurnee
+VALUES (4, 4);
+INSERT INTO UtilizatoriTurnee
+VALUES (5, 1);
+INSERT INTO UtilizatoriTurnee
+VALUES (5, 2);
+INSERT INTO UtilizatoriTurnee
+VALUES (5, 3);
+INSERT INTO UtilizatoriTurnee
+VALUES (5, 4);
+INSERT INTO UtilizatoriTurnee
+VALUES (5, 5);
+
+DESCRIBE UtilizatoriTurnee;
+SELECT * 
+FROM UtilizatoriTurnee;
+
+
+
+--Inserarea datelor in tabela asociativa PartideInfo
+
+CREATE TABLE PartideInfo
+(
+    id_partida int NOT NULL,
+    id_analiza int NOT NULL,
+    id_mutare int NOT NULL,
+    PRIMARY KEY(id_partida, id_analiza, id_mutare),
+    FOREIGN KEY(id_partida) REFERENCES Partide(id_partida),
+    FOREIGN KEY(id_analiza) REFERENCES Analiza(id_analiza),
+    FOREIGN KEY(id_mutare) REFERENCES Mutari(id_mutare)
+);
+
+INSERT INTO PartideInfo
+VALUES (1, 1, 1);
+INSERT INTO PartideInfo
+VALUES (1, 1, 2);
+INSERT INTO PartideInfo
+VALUES (2, 1, 1);
+INSERT INTO PartideInfo
+VALUES (2, 1, 2);
+INSERT INTO PartideInfo
+VALUES (3, 1, 4);
+INSERT INTO PartideInfo
+VALUES (3, 2, 5);
+INSERT INTO PartideInfo
+VALUES (4, 4, 3);
+INSERT INTO PartideInfo
+VALUES (4, 3, 3);
+INSERT INTO PartideInfo
+VALUES (5, 5, 5);
+INSERT INTO PartideInfo
+VALUES (1, 1, 3);
+
+
+DESCRIBE PartideInfo;
+SELECT * 
+FROM PartideInfo;
+
+
+--cream secventa seq ce va fi folosita pentru inserarea in tabel
+
+CREATE SEQUENCE seq
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+MAXVALUE 5;
+
+
+----Inserarea datelor in tabela asociativa UtilizatoriNotificari
+
+CREATE TABLE UtilizatoriNotificari
+(
+    id_utilizator int NOT NULL,
+    id_notificare int NOT NULL,
+    PRIMARY KEY(id_utilizator, id_notificare),
+    FOREIGN KEY(id_utilizator) REFERENCES Utilizatori(id_utilizator),
+    FOREIGN KEY(id_notificare) REFERENCES Notificari(id_notificare)
+);
+
+DESCRIBE UtilizatoriNotificari;
+
+INSERT INTO UtilizatoriNotificari VALUES (seq.nextval, 2);
+INSERT INTO UtilizatoriNotificari VALUES (seq.nextval, 1);
+INSERT INTO UtilizatoriNotificari VALUES (seq.nextval, 3);
+INSERT INTO UtilizatoriNotificari VALUES (seq.nextval, 5);
+INSERT INTO UtilizatoriNotificari VALUES (seq.nextval, 4);
+
+
+SET SERVEROUTPUT ON;
+
+
+
+
+
+
+
+
+
+
+
+--Exercitiul 6
+
+CREATE OR REPLACE PROCEDURE StatisticiPuzzle(
+    p_utilizator_id Utilizatori.id_utilizator%TYPE
+) AS
+    TYPE PuzzleStatType IS RECORD (
+        id_puzzle Puzzles.id_puzzle%TYPE,
+        rating Puzzles.rating%TYPE
+    );
+
+    TYPE PuzzleStatList IS TABLE OF PuzzleStatType; --nested table
+    TYPE PuzzleStatVArray IS VARRAY(100) OF PuzzleStatType; --varray
+    TYPE PuzzleStatIndexBy IS TABLE OF PuzzleStatType INDEX BY PLS_INTEGER; --index by table
+
+    v_numar_total_puzzleuri UtilizatoriPuzzles.id_puzzle%TYPE := 0;
+    v_suma_rating NUMBER := 0;
+    v_max_rating Puzzles.rating%TYPE := NULL;
+
+    --initializare pentru cele 3 colectii
+    v_puzzleuriList PuzzleStatList := PuzzleStatList();
+    v_puzzleuriVArray PuzzleStatVArray;
+    v_puzzleuriIndexBy PuzzleStatIndexBy;
+BEGIN
+    
+    v_puzzleuriList := PuzzleStatList(); 
+    v_puzzleuriVArray := PuzzleStatVArray(); 
+    v_puzzleuriIndexBy := PuzzleStatIndexBy(); 
+        
+
+    FOR puzzle_rec IN (
+        SELECT up.id_puzzle, p.rating
+        FROM UtilizatoriPuzzles up
+        JOIN Puzzles p ON up.id_puzzle = p.id_puzzle
+        WHERE up.id_utilizator = p_utilizator_id
+    ) 
+    LOOP
+        v_numar_total_puzzleuri := v_numar_total_puzzleuri + 1;
+        v_suma_rating := v_suma_rating + puzzle_rec.rating;
+
+        IF v_max_rating IS NULL OR puzzle_rec.rating > v_max_rating THEN
+            v_max_rating := puzzle_rec.rating;
+        END IF;
+
+        --populare
+        v_puzzleuriList.EXTEND;
+        v_puzzleuriList(v_numar_total_puzzleuri).id_puzzle := puzzle_rec.id_puzzle;
+        v_puzzleuriList(v_numar_total_puzzleuri).rating := puzzle_rec.rating;
+
+        v_puzzleuriVArray.EXTEND;
+        v_puzzleuriVArray(v_puzzleuriVArray.LAST) := puzzle_rec;
+
+        v_puzzleuriIndexBy(v_numar_total_puzzleuri) := puzzle_rec;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Numărul total de puzzle-uri rezolvate: ' || v_numar_total_puzzleuri);
+
+    IF v_numar_total_puzzleuri > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Media rating-ului puzzle-urilor rezolvate: ' || ROUND(v_suma_rating / v_numar_total_puzzleuri, 2));
+        DBMS_OUTPUT.PUT_LINE('Cel mai dificil puzzle rezolvat (cel cu rating-ul maxim): ' || v_max_rating);
+
+        DBMS_OUTPUT.PUT_LINE('Lista de puzzle-uri rezolvate de utilizator, împreună cu rating-ul lor (nested table):');
+        FOR i IN 1..v_numar_total_puzzleuri LOOP
+            DBMS_OUTPUT.PUT_LINE('ID Puzzle: ' || v_puzzleuriList(i).id_puzzle || ', Rating: ' || v_puzzleuriList(i).rating);
+        END LOOP;
+
+        DBMS_OUTPUT.PUT_LINE('Lista de puzzle-uri rezolvate de utilizator, împreună cu rating-ul lor (VARRAY):');
+        FOR i IN 1..v_puzzleuriVArray.COUNT LOOP
+            DBMS_OUTPUT.PUT_LINE('ID Puzzle: ' || v_puzzleuriVArray(i).id_puzzle || ', Rating: ' || v_puzzleuriVArray(i).rating);
+        END LOOP;
+
+        DBMS_OUTPUT.PUT_LINE('Lista de puzzle-uri rezolvate de utilizator, împreună cu rating-ul lor (Index-by table):');
+        FOR i IN v_puzzleuriIndexBy.FIRST..v_puzzleuriIndexBy.LAST LOOP
+            DBMS_OUTPUT.PUT_LINE('ID Puzzle: ' || v_puzzleuriIndexBy(i).id_puzzle || ', Rating: ' || v_puzzleuriIndexBy(i).rating);
+        END LOOP;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Utilizatorul nu a rezolvat niciun puzzle.');
+    END IF;
+END StatisticiPuzzle;
+/
+
+EXECUTE StatisticiPuzzle(1);
+
+
+
+
+
+--Exercitiul 7
+
+CREATE OR REPLACE PROCEDURE PuzzleByRating(
+    p_user_id NUMBER,
+    p_rating NUMBER
+) AS
+    -- Declaram un cursor parametrizat
+    CURSOR parametrized_cursor (p_user_id NUMBER) IS
+        SELECT p.id_puzzle, p.solutie, p.pozitie, p.rating
+        FROM Puzzles p
+        JOIN UtilizatoriPuzzles up ON up.id_puzzle = p.id_puzzle
+        WHERE up.id_utilizator = p_user_id;
+
+    -- Declaram un ciclu cursor
+    CURSOR loop_cursor IS
+        SELECT id_puzzle, solutie, pozitie, rating
+        FROM Puzzles
+        WHERE rating > p_rating;
+
+    -- Declaram variabilele pentru citirea rezultatelor din cursorul parametrizat
+    v_id_puzzle_param Puzzles.id_puzzle%TYPE;
+    v_solutie_param Puzzles.solutie%TYPE;
+    v_pozitie_param Puzzles.pozitie%TYPE;
+    v_rating_param Puzzles.rating%TYPE;
+
+    -- Declaram variabilele pentru citirea rezultatelor din ciclu cursor
+    v_id_puzzle_loop Puzzles.id_puzzle%TYPE;
+    v_solutie_loop Puzzles.solutie%TYPE;
+    v_pozitie_loop Puzzles.pozitie%TYPE;
+    v_rating_loop Puzzles.rating%TYPE;
+
+    -- Declaram o variabila pentru a stoca ID-urile puzzle-urilor din intersectie
+    TYPE puzzle_id_list IS TABLE OF Puzzles.id_puzzle%TYPE;
+    v_intersected_ids puzzle_id_list := puzzle_id_list();
+
+BEGIN
+    -- Deschidem ciclu cursor și iterăm prin el
+    OPEN loop_cursor;
+
+    LOOP
+        FETCH loop_cursor INTO v_id_puzzle_loop, v_solutie_loop, v_pozitie_loop, v_rating_loop;
+        EXIT WHEN loop_cursor%NOTFOUND;
+
+        -- Afișăm informațiile din ciclu cursor
+        DBMS_OUTPUT.PUT_LINE('ID_Puzzle (Ciclu): ' || v_id_puzzle_loop || ', Solutie: ' || v_solutie_loop ||
+                             ', Pozitie: ' || v_pozitie_loop || ', Rating: ' || v_rating_loop);
+
+        -- Deschidem cursorul parametrizat și iterăm prin el 
+        OPEN parametrized_cursor(p_user_id);
+
+        LOOP
+            FETCH parametrized_cursor INTO v_id_puzzle_param, v_solutie_param, v_pozitie_param, v_rating_param;
+            EXIT WHEN parametrized_cursor%NOTFOUND;
+
+            -- Afișăm informațiile din cursorul parametrizat
+            DBMS_OUTPUT.PUT_LINE('ID_Puzzle (Parametrizat): ' || v_id_puzzle_param || ', Solutie: ' || v_solutie_param ||
+                                 ', Pozitie: ' || v_pozitie_param || ', Rating: ' || v_rating_param);
+
+            -- Adăugăm ID-ul puzzle-ului în intersecție dacă se găsește în ambele cursore
+            IF v_id_puzzle_param = v_id_puzzle_loop THEN
+                v_intersected_ids.EXTEND;
+                v_intersected_ids(v_intersected_ids.LAST) := v_id_puzzle_param;
+            END IF;
+        END LOOP;
+
+        -- Închidem cursorul parametrizat înainte de a trece la următoarea iterație a ciclu cursorului
+        CLOSE parametrized_cursor;
+
+    END LOOP;
+
+    -- Închidem ciclu cursorul
+    CLOSE loop_cursor;
+
+    -- Afișăm puzzle-urile care se găsesc în ambele cursore
+    IF v_intersected_ids.COUNT > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Puzzle-urile din ambele cursore:');
+        FOR i IN 1..v_intersected_ids.COUNT LOOP
+            DBMS_OUTPUT.PUT_LINE('ID_Puzzle: ' || v_intersected_ids(i));
+        END LOOP;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Nu există puzzle-uri în ambele cursore.');
+    END IF;
+
+END PuzzleByRating;
+/
+
+
+
+EXECUTE PuzzleByRating(1, 150);
+
+
+
+
+--Exercitiul 8
+
+
+CREATE OR REPLACE FUNCTION GetUsernamesForNotification(
+    p_id_utilizator NUMBER
+)
+RETURN SYS_REFCURSOR
+IS
+    -- Declaram variabila pentru cursorul de rezultate
+    user_cursor SYS_REFCURSOR;
+
+    -- Declaram variabila pentru a stoca rezultatul pentru exceptia 1
+    v_user_count NUMBER;
+
+    -- Declaram variabile pentru tratarea exceptiilor
+    custom_exception1 EXCEPTION;
+    custom_exception2 EXCEPTION;
+BEGIN
+    -- Verificam daca utilizatorul exista in Utilizatori 
+    SELECT COUNT(*)
+    INTO v_user_count
+    FROM Utilizatori
+    WHERE id_utilizator = p_id_utilizator;
+
+    IF v_user_count = 0 THEN
+        -- Daca nu exista, ridicam o exceptie
+        RAISE custom_exception1;
+    END IF;
+
+    -- Deschidem cursorul de rezultate
+    OPEN user_cursor FOR
+        SELECT DISTINCT u.username
+        FROM Utilizatori u
+        LEFT OUTER JOIN UtilizatoriNotificari UN ON u.id_utilizator = UN.id_utilizator
+        RIGHT OUTER JOIN Plati P ON u.id_utilizator = P.id_utilizator
+        FULL OUTER JOIN Conversatii C ON u.id_utilizator = C.id_utilizator1
+        LEFT OUTER JOIN Prietenie PR ON u.id_utilizator = PR.id_utilizator1
+        WHERE 
+            u.id_utilizator = p_id_utilizator
+            AND u.id_utilizator IN (
+                SELECT DISTINCT UN.id_utilizator
+                FROM UtilizatoriNotificari UN
+                LEFT OUTER JOIN Notificari N ON UN.id_notificare = N.id_notificare
+                LEFT OUTER JOIN Mesaj M ON UN.id_notificare = M.id_notificare
+                WHERE N.titlu LIKE '%Titled%'
+                AND M.text LIKE '%maestri%'
+            )
+            AND (P.suma = 15 OR P.suma IS NULL)
+            AND (C.id_utilizator2 = 2 OR C.id_utilizator2 IS NULL)
+            AND (PR.id_utilizator2 = 4 OR PR.id_utilizator2 IS NULL);
+
+    -- Verificam daca cursorul a fost deschis corect
+    IF user_cursor%ISOPEN AND user_cursor%NOTFOUND THEN
+        -- Ridicam o exceptie pentru niciun rezultat gasit
+        RAISE custom_exception2;
+    END IF;
+
+    -- Returnam cursorul de rezultate
+    RETURN user_cursor;
+
+EXCEPTION
+    WHEN custom_exception1 THEN
+        -- Tratam exceptia pentru utilizatorul care nu exista
+        DBMS_OUTPUT.PUT_LINE('Utilizatorul nu exista in Baza de date.');
+        RETURN NULL; -- Adaugam aceasta instructiune pentru a trata exceptia si a evita eroarea ORA-06503
+    WHEN custom_exception2 THEN
+        -- Tratam exceptia pentru cursorul care nu a gasit rezultate
+        DBMS_OUTPUT.PUT_LINE('Nu s-au gasit rezultate pentru utilizatorul dat.');
+        CLOSE user_cursor; -- Inchidem cursorul in caz de exceptie
+        RETURN NULL; -- Adaugam aceasta instructiune pentru a trata exceptia si a evita eroarea ORA-06503
+    WHEN OTHERS THEN
+        -- Tratam alte exceptii neasteptate
+        DBMS_OUTPUT.PUT_LINE('O eroare neasteptata a aparut.');
+        CLOSE user_cursor; -- Inchidem cursorul in caz de exceptie
+        RETURN NULL; -- Adaugam aceasta instructiune pentru a trata exceptia si a evita eroarea ORA-06503
+END GetUsernamesForNotification;
+/
+
+
+
+DECLARE
+    v_result_cursor SYS_REFCURSOR;
+    v_username VARCHAR2(100); 
+BEGIN
+    -- Apel corect
+    v_result_cursor := GetUsernamesForNotification(1);
+
+    -- Verificam daca cursorul este deschis
+    IF v_result_cursor%ISOPEN THEN
+        -- Parcurgem cursorul in LOOP
+        LOOP
+            FETCH v_result_cursor INTO v_username;
+            EXIT WHEN v_result_cursor%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE(v_username);
+        END LOOP;
+
+        -- Inchidem cursorul
+        CLOSE v_result_cursor;
+    END IF;
+END;
+/
+
+DECLARE
+    v_result_cursor SYS_REFCURSOR;
+    v_username VARCHAR2(100); 
+BEGIN
+    -- Apel incorect
+    v_result_cursor := GetUsernamesForNotification(2);
+
+    -- Verificam daca cursorul este deschis
+    IF v_result_cursor%ISOPEN THEN
+        -- Parcurgem cursorul in LOOP
+        LOOP
+            FETCH v_result_cursor INTO v_username;
+            EXIT WHEN v_result_cursor%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE(v_username);
+        END LOOP;
+        CLOSE v_result_cursor;
+    END IF;
+END;
+/
+
+
+
+DECLARE
+    v_result_cursor SYS_REFCURSOR;
+    v_username VARCHAR2(100); 
+BEGIN
+    -- Apel incorect
+    v_result_cursor := GetUsernamesForNotification(6);
+
+    -- Verificam daca cursorul este deschis
+    IF v_result_cursor%ISOPEN THEN
+        -- Parcurgem cursorul in LOOP
+        LOOP
+            FETCH v_result_cursor INTO v_username;
+            EXIT WHEN v_result_cursor%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE(v_username);
+        END LOOP;
+
+        -- Inchidem cursorul
+        CLOSE v_result_cursor;
+    END IF;
+END;
+/
+
+
+
+
+
+
+--Cerinta 9
+
+CREATE OR REPLACE PROCEDURE CheckUserCriteria(
+    p_id_utilizator UtilizatoriTurnee.id_utilizator%TYPE
+)
+AS
+   v_user_id UtilizatoriTurnee.id_utilizator%TYPE;
+   v_payment_id Plati.id_plata%TYPE;
+BEGIN
+   SELECT DISTINCT(id_utilizator)
+   INTO v_user_id
+   FROM UtilizatoriTurnee
+   WHERE id_utilizator = p_id_utilizator
+     AND id_turneu IN
+         (SELECT id_turneu
+          FROM Turnee
+          WHERE data_start >= TO_DATE('01-JAN-2023', 'DD-MON-YYYY'))
+     AND id_utilizator IN
+         (SELECT id_utilizator
+          FROM Utilizatori
+          WHERE (LENGTH(username) = 4 OR LENGTH(username) = 5)
+            AND id_utilizator IN
+                (SELECT id_utilizator
+                 FROM UtilizatoriPUZZLES
+                 WHERE id_puzzle = 
+                       (SELECT id_puzzle
+                        FROM Puzzles
+                        WHERE Pozitie LIKE '%Ra1%')))
+     AND id_utilizator IN 
+         (SELECT DISTINCT(id_utilizator1)
+          FROM Prietenie
+          WHERE EXTRACT (MONTH FROM data_inceput) IN (3, 4, 6));
+
+   DBMS_OUTPUT.PUT_LINE('Utilizatorul cu ID ' || v_user_id || ' corespunde criteriilor.');
+   
+   SELECT id_plata
+   INTO v_payment_id
+   FROM Plati 
+   WHERE p_id_utilizator = id_utilizator;
+   
+   DBMS_OUTPUT.PUT_LINE('ID Plata: ' || v_payment_id);
+   
+EXCEPTION
+   WHEN NO_DATA_FOUND THEN
+      DBMS_OUTPUT.PUT_LINE('Utilizatorul cu ID ' || p_id_utilizator || ' nu corespunde criteriilor.');
+   WHEN TOO_MANY_ROWS THEN
+      DBMS_OUTPUT.PUT_LINE('Prea multe înregistrări întoarse pentru utilizator.');
+   WHEN OTHERS THEN
+      DBMS_OUTPUT.PUT_LINE('O eroare neașteptată a apărut: ' || SQLERRM);
+END CheckUserCriteria;
+/
+
+EXECUTE CheckUserCriteria(1);
+EXECUTE CheckUserCriteria(2);
+EXECUTE CheckUserCriteria(3);
+
+
+--Cerinta 10
+
+
+-- Definirea trigger-ului
+CREATE OR REPLACE TRIGGER limit_users
+BEFORE INSERT ON Utilizatori
+DECLARE
+    v_user_count NUMBER;
+BEGIN
+    -- Verificăm numărul curent de utilizatori
+    SELECT COUNT(*) INTO v_user_count FROM Utilizatori;
+
+    -- Ridicăm o excepție dacă numărul de utilizatori depășește limita curentă
+    IF v_user_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Nu se pot adăuga noi utilizatori. Limita a fost atinsă.');
+    END IF;
+END;
+/
+
+-- Declanșarea trigger-ului
+BEGIN
+    -- Acest bloc încearcă să adauge un utilizator și va declanșa trigger-ul
+    INSERT INTO Utilizatori VALUES (6, 'newuser', 'newuser@mail.com', 'newpassword');
+EXCEPTION
+    WHEN OTHERS THEN
+        -- Capturăm și afișăm mesajul de eroare generat de trigger
+        DBMS_OUTPUT.PUT_LINE(SQLERRM);
+END;
+/
+
+-- Stergerea trigger-ului
+DROP TRIGGER limit_users;
+/
+
+
+
+
+
+
+--Cerinta 11
+
+CREATE OR REPLACE TRIGGER UtilizatoriNotificari_Trigger
+BEFORE INSERT OR DELETE ON UtilizatoriNotificari
+FOR EACH ROW
+DECLARE
+    v_utilizator_count NUMBER;
+    v_notificare_count NUMBER;
+BEGIN
+    IF INSERTING THEN
+        -- Verifica daca utilizatorul exista in tabela Utilizatori
+        SELECT COUNT(*) INTO v_utilizator_count
+        FROM Utilizatori
+        WHERE id_utilizator = :NEW.id_utilizator;
+
+        IF v_utilizator_count = 0 THEN
+            RAISE_APPLICATION_ERROR(-20001, 'Utilizatorul nu exista in tabela Utilizatori.');
+        END IF;
+
+        -- Verifica daca notificarea exista in tabela Notificari
+        SELECT COUNT(*) INTO v_notificare_count
+        FROM Notificari
+        WHERE id_notificare = :NEW.id_notificare;
+
+        IF v_notificare_count = 0 THEN
+            RAISE_APPLICATION_ERROR(-20002, 'Notificarea nu exista in tabela Notificari.');
+        END IF;
+    ELSIF DELETING THEN
+        -- Verifica daca exista inregistrari asociate in tabela UtilizatoriNotificari
+        IF :OLD.id_utilizator IS NOT NULL AND :OLD.id_notificare IS NOT NULL THEN
+            RAISE_APPLICATION_ERROR(-20003, 'Nu poti sterge un utilizator sau notificare care are inregistrari asociate in tabela UtilizatoriNotificari.');
+        END IF;
+    END IF;
+END;
+/
+
+-- Operatiune de insert care nu e corecta din pricina faptului ca utilizatorul 6 nu e in Utilizatori
+INSERT INTO UtilizatoriNotificari VALUES (6, 2);
+
+-- Operatiune de insert care nu e corecta din pricina faptului ca notificarea 6 nu e in Notificari
+INSERT INTO UtilizatoriNotificari (id_utilizator, id_notificare) VALUES (1, 6);
+
+--Nu putem da DELETE din cauza Trigger-ului
+DELETE FROM UtilizatoriNotificari where id_notificare = 1;
+DELETE FROM UtilizatoriNotificari where id_utilizator = 1;
+
+DROP TRIGGER UtilizatoriNotificari_Trigger;
+
+
+
+--Cerinta 12
+
+CREATE TABLE modifications_history (
+    utilizator VARCHAR(30),
+    nume_bd VARCHAR(50),
+    eveniment VARCHAR(20),
+    nume_obiect VARCHAR(30),
+    data DATE
+);
+
+CREATE OR REPLACE TRIGGER modifications
+    BEFORE CREATE OR DROP OR ALTER ON SCHEMA
+BEGIN
+    -- Obținem ora și minutele curente
+    DECLARE
+        v_current_hour INT;
+        v_current_minute INT;
+    BEGIN
+        SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'HH24')), TO_NUMBER(TO_CHAR(SYSDATE, 'MI'))
+        INTO v_current_hour, v_current_minute FROM dual;
+
+        -- Verificăm dacă ora și minutele curente sunt în intervalul 19:40 - 20:10
+        IF (v_current_hour = 19 AND v_current_minute >= 40) OR
+           (v_current_hour = 20 AND v_current_minute <= 10) THEN
+            -- Executăm acțiunea de inserare doar în acest interval
+            INSERT INTO modifications_history VALUES (SYS.LOGIN_USER, SYS.DATABASE_NAME, SYS.SYSEVENT, SYS.DICTIONARY_OBJ_NAME, SYSDATE);
+        END IF;
+    END;
+END;
+/
+
+ALTER TABLE Utilizatori ADD titlulJucatorului VARCHAR(2); --GM (GrandMaster), IM (INternational Master) etc
+ALTER TABLE Utilizatori DROP COLUMN titlulJucatorului;
+
+SELECT * FROM modifications_history;
+
+DROP TRIGGER modifications;
+
+DROP TABLE modifications_history;
+
+
+
+
+--Cerinta 13
+
+CREATE OR REPLACE PACKAGE cerinta13 AS
+    PROCEDURE StatisticiPuzzle(p_utilizator_id Utilizatori.id_utilizator%TYPE);
+    PROCEDURE PuzzleByRating(p_user_id NUMBER, p_rating NUMBER);
+    FUNCTION GetUsernamesForNotification(p_id_utilizator NUMBER) RETURN SYS_REFCURSOR;
+    PROCEDURE CheckUserCriteria(p_id_utilizator UtilizatoriTurnee.id_utilizator%TYPE);
+END cerinta13;
+/
+
+CREATE OR REPLACE PACKAGE BODY cerinta13 AS
+    --6
+    PROCEDURE StatisticiPuzzle(
+        p_utilizator_id Utilizatori.id_utilizator%TYPE
+    ) AS
+        TYPE PuzzleStatType IS RECORD (
+            id_puzzle Puzzles.id_puzzle%TYPE,
+            rating Puzzles.rating%TYPE
+        );
+    
+        TYPE PuzzleStatList IS TABLE OF PuzzleStatType; --nested table
+        TYPE PuzzleStatVArray IS VARRAY(100) OF PuzzleStatType; --varray
+        TYPE PuzzleStatIndexBy IS TABLE OF PuzzleStatType INDEX BY PLS_INTEGER; --index by table
+    
+        v_numar_total_puzzleuri UtilizatoriPuzzles.id_puzzle%TYPE := 0;
+        v_suma_rating NUMBER := 0;
+        v_max_rating Puzzles.rating%TYPE := NULL;
+    
+        --initializare pentru cele 3 colectii
+        v_puzzleuriList PuzzleStatList := PuzzleStatList();
+        v_puzzleuriVArray PuzzleStatVArray;
+        v_puzzleuriIndexBy PuzzleStatIndexBy;
+    BEGIN
+        
+        v_puzzleuriList := PuzzleStatList(); 
+        v_puzzleuriVArray := PuzzleStatVArray(); 
+        v_puzzleuriIndexBy := PuzzleStatIndexBy(); 
+            
+    
+        FOR puzzle_rec IN (
+            SELECT up.id_puzzle, p.rating
+            FROM UtilizatoriPuzzles up
+            JOIN Puzzles p ON up.id_puzzle = p.id_puzzle
+            WHERE up.id_utilizator = p_utilizator_id
+        ) 
+        LOOP
+            v_numar_total_puzzleuri := v_numar_total_puzzleuri + 1;
+            v_suma_rating := v_suma_rating + puzzle_rec.rating;
+    
+            IF v_max_rating IS NULL OR puzzle_rec.rating > v_max_rating THEN
+                v_max_rating := puzzle_rec.rating;
+            END IF;
+    
+            --populare
+            v_puzzleuriList.EXTEND;
+            v_puzzleuriList(v_numar_total_puzzleuri).id_puzzle := puzzle_rec.id_puzzle;
+            v_puzzleuriList(v_numar_total_puzzleuri).rating := puzzle_rec.rating;
+    
+            v_puzzleuriVArray.EXTEND;
+            v_puzzleuriVArray(v_puzzleuriVArray.LAST) := puzzle_rec;
+    
+            v_puzzleuriIndexBy(v_numar_total_puzzleuri) := puzzle_rec;
+        END LOOP;
+    
+        DBMS_OUTPUT.PUT_LINE('Numărul total de puzzle-uri rezolvate: ' || v_numar_total_puzzleuri);
+    
+        IF v_numar_total_puzzleuri > 0 THEN
+            DBMS_OUTPUT.PUT_LINE('Media rating-ului puzzle-urilor rezolvate: ' || ROUND(v_suma_rating / v_numar_total_puzzleuri, 2));
+            DBMS_OUTPUT.PUT_LINE('Cel mai dificil puzzle rezolvat (cel cu rating-ul maxim): ' || v_max_rating);
+    
+            DBMS_OUTPUT.PUT_LINE('Lista de puzzle-uri rezolvate de utilizator, împreună cu rating-ul lor (nested table):');
+            FOR i IN 1..v_numar_total_puzzleuri LOOP
+                DBMS_OUTPUT.PUT_LINE('ID Puzzle: ' || v_puzzleuriList(i).id_puzzle || ', Rating: ' || v_puzzleuriList(i).rating);
+            END LOOP;
+    
+            DBMS_OUTPUT.PUT_LINE('Lista de puzzle-uri rezolvate de utilizator, împreună cu rating-ul lor (VARRAY):');
+            FOR i IN 1..v_puzzleuriVArray.COUNT LOOP
+                DBMS_OUTPUT.PUT_LINE('ID Puzzle: ' || v_puzzleuriVArray(i).id_puzzle || ', Rating: ' || v_puzzleuriVArray(i).rating);
+            END LOOP;
+    
+            DBMS_OUTPUT.PUT_LINE('Lista de puzzle-uri rezolvate de utilizator, împreună cu rating-ul lor (Index-by table):');
+            FOR i IN v_puzzleuriIndexBy.FIRST..v_puzzleuriIndexBy.LAST LOOP
+                DBMS_OUTPUT.PUT_LINE('ID Puzzle: ' || v_puzzleuriIndexBy(i).id_puzzle || ', Rating: ' || v_puzzleuriIndexBy(i).rating);
+            END LOOP;
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Utilizatorul nu a rezolvat niciun puzzle.');
+        END IF;
+    END StatisticiPuzzle;
+    
+    
+    
+    --7
+    PROCEDURE PuzzleByRating(
+        p_user_id NUMBER,
+        p_rating NUMBER
+    ) AS
+        -- Declaram un cursor parametrizat
+        CURSOR parametrized_cursor (p_user_id NUMBER) IS
+            SELECT p.id_puzzle, p.solutie, p.pozitie, p.rating
+            FROM Puzzles p
+            JOIN UtilizatoriPuzzles up ON up.id_puzzle = p.id_puzzle
+            WHERE up.id_utilizator = p_user_id;
+    
+        -- Declaram un cursor dinamic
+        TYPE dynamic_cursor IS REF CURSOR;
+    
+        -- Declaram un tip de tabel pentru a stoca ID-urile puzzle-urilor din cursorul dinamic
+        TYPE puzzle_id_list IS TABLE OF Puzzles.id_puzzle%TYPE;
+    
+        -- Declaram variabilele pentru citirea rezultatelor din cursorul dinamic
+        v_id_puzzle Puzzles.id_puzzle%TYPE;
+        v_solutie Puzzles.solutie%TYPE;
+        v_pozitie Puzzles.pozitie%TYPE;
+        v_rating Puzzles.rating%TYPE;
+    
+        -- Declaram o variabila pentru a stoca ID-urile puzzle-urilor din intersectie
+        v_param_ids puzzle_id_list := puzzle_id_list();
+    
+        -- Declaram o variabila pentru a stoca ID-urile puzzle-urilor din intersectie
+        v_intersected_ids puzzle_id_list := puzzle_id_list();
+    
+    BEGIN
+        -- Iteram prin cursorul parametrizat si stocam ID-urile in variabila v_param_ids
+        FOR param_rec IN parametrized_cursor(p_user_id) LOOP
+            v_param_ids.EXTEND;
+            v_param_ids(v_param_ids.LAST) := param_rec.id_puzzle;
+            DBMS_OUTPUT.PUT_LINE('ID_Puzzle: ' || param_rec.id_puzzle || ', Solutie: ' || param_rec.solutie ||
+                                 ', Pozitie: ' || param_rec.pozitie || ', Rating: ' || param_rec.rating);
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('----------------------------------------');
+    
+        -- Deschidem cursorul dinamic pentru a selecta puzzle-urile cu rating-ul mai mare decat p_rating
+        DECLARE
+            dynamic_cursor SYS_REFCURSOR;
+        BEGIN
+            OPEN dynamic_cursor FOR 'SELECT id_puzzle, solutie, pozitie, rating FROM Puzzles WHERE rating > :1' USING p_rating;
+    
+            -- Iteram prin cursorul dinamic si stocam ID-urile in variabila v_intersected_ids daca se afla deja in v_param_ids
+            LOOP
+                FETCH dynamic_cursor INTO v_id_puzzle, v_solutie, v_pozitie, v_rating;
+                EXIT WHEN dynamic_cursor%NOTFOUND;
+    
+                IF v_id_puzzle MEMBER OF v_param_ids THEN
+                    v_intersected_ids.EXTEND;
+                    v_intersected_ids(v_intersected_ids.LAST) := v_id_puzzle;
+                    DBMS_OUTPUT.PUT_LINE('ID_Puzzle: ' || v_id_puzzle || ', Solutie: ' || v_solutie ||
+                                         ', Pozitie: ' || v_pozitie || ', Rating: ' || v_rating);
+                END IF;
+            END LOOP;
+    
+            -- Inchidem cursorul dinamic
+            CLOSE dynamic_cursor;
+        END;
+    
+        DBMS_OUTPUT.PUT_LINE('----------------------------------------');
+        
+        -- Iteram si prin intersectie si afisam informatiile
+        FOR i IN 1..v_intersected_ids.COUNT LOOP
+            SELECT id_puzzle, solutie, pozitie, rating
+            INTO v_id_puzzle, v_solutie, v_pozitie, v_rating
+            FROM Puzzles
+            WHERE id_puzzle = v_intersected_ids(i);
+    
+            DBMS_OUTPUT.PUT_LINE('ID_Puzzle: ' || v_id_puzzle || ', Solutie: ' || v_solutie ||
+                                 ', Pozitie: ' || v_pozitie || ', Rating: ' || v_rating);
+        END LOOP;
+    
+    END PuzzleByRating;
+    
+    
+    
+    --8
+    FUNCTION GetUsernamesForNotification(
+        p_id_utilizator NUMBER
+    )
+    RETURN SYS_REFCURSOR
+    IS
+        -- Declaram variabila pentru cursorul de rezultate
+        user_cursor SYS_REFCURSOR;
+    
+        -- Declaram variabila pentru a stoca rezultatul pentru exceptia 1
+        v_user_count NUMBER;
+    
+        -- Declaram variabile pentru tratarea exceptiilor
+        custom_exception1 EXCEPTION;
+        custom_exception2 EXCEPTION;
+    BEGIN
+        -- Verificam daca utilizatorul exista in Utilizatori 
+        SELECT COUNT(*)
+        INTO v_user_count
+        FROM Utilizatori
+        WHERE id_utilizator = p_id_utilizator;
+    
+        IF v_user_count = 0 THEN
+            -- Daca nu exista, ridicam o exceptie
+            RAISE custom_exception1;
+        END IF;
+    
+        -- Deschidem cursorul de rezultate
+        OPEN user_cursor FOR
+            SELECT DISTINCT u.username
+            FROM Utilizatori u
+            LEFT OUTER JOIN UtilizatoriNotificari UN ON u.id_utilizator = UN.id_utilizator
+            RIGHT OUTER JOIN Plati P ON u.id_utilizator = P.id_utilizator
+            FULL OUTER JOIN Conversatii C ON u.id_utilizator = C.id_utilizator1
+            LEFT OUTER JOIN Prietenie PR ON u.id_utilizator = PR.id_utilizator1
+            WHERE 
+                u.id_utilizator = p_id_utilizator
+                AND u.id_utilizator IN (
+                    SELECT DISTINCT UN.id_utilizator
+                    FROM UtilizatoriNotificari UN
+                    LEFT OUTER JOIN Notificari N ON UN.id_notificare = N.id_notificare
+                    LEFT OUTER JOIN Mesaj M ON UN.id_notificare = M.id_notificare
+                    WHERE N.titlu LIKE '%Titled%'
+                    AND M.text LIKE '%maestri%'
+                )
+                AND (P.suma = 15 OR P.suma IS NULL)
+                AND (C.id_utilizator2 = 2 OR C.id_utilizator2 IS NULL)
+                AND (PR.id_utilizator2 = 4 OR PR.id_utilizator2 IS NULL);
+    
+        -- Verificam daca cursorul a fost deschis corect
+        IF user_cursor%ISOPEN AND user_cursor%NOTFOUND THEN
+            -- Ridicam o exceptie pentru niciun rezultat gasit
+            RAISE custom_exception2;
+        END IF;
+    
+        -- Returnam cursorul de rezultate
+        RETURN user_cursor;
+    
+    EXCEPTION
+        WHEN custom_exception1 THEN
+            -- Tratam exceptia pentru utilizatorul care nu exista
+            DBMS_OUTPUT.PUT_LINE('Utilizatorul nu exista in Baza de date.');
+            RETURN NULL; -- Adaugam aceasta instructiune pentru a trata exceptia si a evita eroarea ORA-06503
+        WHEN custom_exception2 THEN
+            -- Tratam exceptia pentru cursorul care nu a gasit rezultate
+            DBMS_OUTPUT.PUT_LINE('Nu s-au gasit rezultate pentru utilizatorul dat.');
+            CLOSE user_cursor; -- Inchidem cursorul in caz de exceptie
+            RETURN NULL; -- Adaugam aceasta instructiune pentru a trata exceptia si a evita eroarea ORA-06503
+        WHEN OTHERS THEN
+            -- Tratam alte exceptii neasteptate
+            DBMS_OUTPUT.PUT_LINE('O eroare neasteptata a aparut.');
+            CLOSE user_cursor; -- Inchidem cursorul in caz de exceptie
+            RETURN NULL; -- Adaugam aceasta instructiune pentru a trata exceptia si a evita eroarea ORA-06503
+    END GetUsernamesForNotification;
+    
+    
+    
+    --9
+    PROCEDURE CheckUserCriteria(
+        p_id_utilizator UtilizatoriTurnee.id_utilizator%TYPE
+    )
+    AS
+       v_user_id UtilizatoriTurnee.id_utilizator%TYPE;
+       v_payment_id Plati.id_plata%TYPE;
+    BEGIN
+       SELECT DISTINCT(id_utilizator)
+       INTO v_user_id
+       FROM UtilizatoriTurnee
+       WHERE id_utilizator = p_id_utilizator
+         AND id_turneu IN
+             (SELECT id_turneu
+              FROM Turnee
+              WHERE data_start >= TO_DATE('01-JAN-2023', 'DD-MON-YYYY'))
+         AND id_utilizator IN
+             (SELECT id_utilizator
+              FROM Utilizatori
+              WHERE (LENGTH(username) = 4 OR LENGTH(username) = 5)
+                AND id_utilizator IN
+                    (SELECT id_utilizator
+                     FROM UtilizatoriPUZZLES
+                     WHERE id_puzzle = 
+                           (SELECT id_puzzle
+                            FROM Puzzles
+                            WHERE Pozitie LIKE '%Ra1%')))
+         AND id_utilizator IN 
+             (SELECT DISTINCT(id_utilizator1)
+              FROM Prietenie
+              WHERE EXTRACT (MONTH FROM data_inceput) IN (3, 4, 6));
+    
+       DBMS_OUTPUT.PUT_LINE('Utilizatorul cu ID ' || v_user_id || ' corespunde criteriilor.');
+       
+       SELECT id_plata
+       INTO v_payment_id
+       FROM Plati 
+       WHERE p_id_utilizator = id_utilizator;
+       
+       DBMS_OUTPUT.PUT_LINE('ID Plata: ' || v_payment_id);
+       
+    EXCEPTION
+       WHEN NO_DATA_FOUND THEN
+          DBMS_OUTPUT.PUT_LINE('Utilizatorul cu ID ' || p_id_utilizator || ' nu corespunde criteriilor.');
+       WHEN TOO_MANY_ROWS THEN
+          DBMS_OUTPUT.PUT_LINE('Prea multe înregistrări întoarse pentru utilizator.');
+       WHEN OTHERS THEN
+          DBMS_OUTPUT.PUT_LINE('O eroare neașteptată a apărut: ' || SQLERRM);
+    END CheckUserCriteria;
+END cerinta13;
+/
+
+--Verificare ex 6
+EXECUTE cerinta13.StatisticiPuzzle(1);
+
+--Verificare ex 7
+EXECUTE cerinta13.PuzzleByRating(1, 150);
+
+--Verificare ex 8
+DECLARE
+    v_result_cursor SYS_REFCURSOR;
+    v_username VARCHAR2(100); 
+BEGIN
+    -- Apel corect
+    v_result_cursor := cerinta13.GetUsernamesForNotification(1);
+
+    -- Verificam daca cursorul este deschis
+    IF v_result_cursor%ISOPEN THEN
+        -- Parcurgem cursorul in bucla LOOP
+        LOOP
+            FETCH v_result_cursor INTO v_username;
+            EXIT WHEN v_result_cursor%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE(v_username);
+        END LOOP;
+
+        -- Inchidem cursorul
+        CLOSE v_result_cursor;
+    END IF;
+END;
+/
+
+--Verificare ex 9
+EXECUTE cerinta13.CheckUserCriteria(1);
+
+
+
+
+
+
+
+--Cerinta 14
+
+CREATE OR REPLACE PACKAGE cerinta14 AS
+  -- Tipuri de date
+  TYPE PuzzleStatType IS RECORD (
+        id_puzzle Puzzles.id_puzzle%TYPE,
+        rating Puzzles.rating%TYPE
+    );
+  
+  TYPE StringList IS TABLE OF VARCHAR2(100) INDEX BY PLS_INTEGER;
+
+
+  FUNCTION GetUsernamesForNotification(p_id_utilizator NUMBER) RETURN StringList;
+  FUNCTION ProcessUser(p_id_utilizator Utilizatori.id_utilizator%TYPE) RETURN VARCHAR2;
+
+  PROCEDURE StatisticiPuzzle(p_utilizator_id Utilizatori.id_utilizator%TYPE);
+  PROCEDURE CheckUserCriteria(p_id_utilizator UtilizatoriTurnee.id_utilizator%TYPE);
+
+END cerinta14;
+/
+
+-- Implementarea pachetului
+CREATE OR REPLACE PACKAGE BODY cerinta14 AS
+
+  FUNCTION GetUsernamesForNotification(
+        p_id_utilizator NUMBER
+    )
+    RETURN StringList
+    IS
+        v_usernames StringList := StringList();
+        v_user_count NUMBER;
+        custom_exception1 EXCEPTION;
+        custom_exception2 EXCEPTION;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_user_count
+        FROM Utilizatori
+        WHERE id_utilizator = p_id_utilizator;
+
+        IF v_user_count = 0 THEN
+            RAISE custom_exception1;
+        END IF;
+
+        -- Preluăm datele în colecția de șiruri
+        SELECT DISTINCT u.username
+        BULK COLLECT INTO v_usernames
+        FROM Utilizatori u
+        LEFT OUTER JOIN UtilizatoriNotificari UN ON u.id_utilizator = UN.id_utilizator
+        RIGHT OUTER JOIN Plati P ON u.id_utilizator = P.id_utilizator
+        FULL OUTER JOIN Conversatii C ON u.id_utilizator = C.id_utilizator1
+        LEFT OUTER JOIN Prietenie PR ON u.id_utilizator = PR.id_utilizator1
+        WHERE 
+            u.id_utilizator = p_id_utilizator
+            AND u.id_utilizator IN (
+                SELECT DISTINCT UN.id_utilizator
+                FROM UtilizatoriNotificari UN
+                LEFT OUTER JOIN Notificari N ON UN.id_notificare = N.id_notificare
+                LEFT OUTER JOIN Mesaj M ON UN.id_notificare = M.id_notificare
+                WHERE N.titlu LIKE '%Titled%'
+                AND M.text LIKE '%maestri%'
+            )
+            AND (P.suma = 15 OR P.suma IS NULL)
+            AND (C.id_utilizator2 = 2 OR C.id_utilizator2 IS NULL)
+            AND (PR.id_utilizator2 = 4 OR PR.id_utilizator2 IS NULL);
+
+        IF v_usernames.COUNT = 0 THEN
+            RAISE custom_exception2;
+        END IF;
+
+        -- Returnăm colecția de șiruri
+        RETURN v_usernames;
+
+    EXCEPTION
+        WHEN custom_exception1 THEN
+            DBMS_OUTPUT.PUT_LINE('Utilizatorul nu există în Baza de date.');
+            RETURN v_usernames; -- Returnăm colecția goală în caz de excepție
+        WHEN custom_exception2 THEN
+            DBMS_OUTPUT.PUT_LINE('Nu s-au găsit rezultate pentru utilizatorul dat.');
+            RETURN v_usernames; -- Returnăm colecția goală în caz de excepție
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('O eroare neașteptată a apărut.');
+            RETURN v_usernames; -- Returnăm colecția goală în caz de excepție
+    END GetUsernamesForNotification;
+
+  --FUNCTION2
+  FUNCTION ProcessUser(p_id_utilizator Utilizatori.id_utilizator%TYPE) RETURN VARCHAR2 IS
+        v_result VARCHAR2(200);
+        v_usernames StringList;
+    BEGIN
+        -- Apelam functia pentru notificari
+        v_result := 'Notificari pentru utilizatorul cu ID ' || p_id_utilizator || ': ';
+
+        -- Preluam datele in colectie
+        v_usernames := GetUsernamesForNotification(p_id_utilizator);
+
+        FOR idx IN v_usernames.FIRST..v_usernames.LAST
+        LOOP
+            v_result := v_result || v_usernames(idx) || ', ';
+        END LOOP;
+
+        DBMS_OUTPUT.PUT_LINE(v_result);
+
+        -- Apelam procedura pentru statistici puzzle
+        StatisticiPuzzle(p_id_utilizator);
+
+        -- Apelam procedura pentru criterii utilizator
+        CheckUserCriteria(p_id_utilizator);
+
+        RETURN 'Procesarea utilizatorului a fost finalizata.';
+    END ProcessUser;
+
+  PROCEDURE StatisticiPuzzle(p_utilizator_id Utilizatori.id_utilizator%TYPE) IS
+    TYPE PuzzleStatList IS TABLE OF PuzzleStatType INDEX BY PLS_INTEGER;
+    v_puzzleuriList PuzzleStatList;
+
+    v_numar_total_puzzleuri UtilizatoriPuzzles.id_puzzle%TYPE := 0;
+    v_suma_rating NUMBER := 0;
+    v_max_rating Puzzles.rating%TYPE := NULL;
+
+  BEGIN
+    FOR puzzle_rec IN (
+        SELECT up.id_puzzle, p.rating
+        FROM UtilizatoriPuzzles up
+        JOIN Puzzles p ON up.id_puzzle = p.id_puzzle
+        WHERE up.id_utilizator = p_utilizator_id
+    ) 
+    LOOP
+        v_numar_total_puzzleuri := v_numar_total_puzzleuri + 1;
+        v_suma_rating := v_suma_rating + puzzle_rec.rating;
+
+        IF v_max_rating IS NULL OR puzzle_rec.rating > v_max_rating THEN
+            v_max_rating := puzzle_rec.rating;
+        END IF;
+
+        v_puzzleuriList(v_numar_total_puzzleuri).id_puzzle := puzzle_rec.id_puzzle;
+        v_puzzleuriList(v_numar_total_puzzleuri).rating := puzzle_rec.rating;
+    END LOOP;
+
+    DBMS_OUTPUT.PUT_LINE('Numărul total de puzzle-uri rezolvate: ' || v_numar_total_puzzleuri);
+
+    IF v_numar_total_puzzleuri > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Media rating-ului puzzle-urilor rezolvate: ' || ROUND(v_suma_rating / v_numar_total_puzzleuri, 2));
+        DBMS_OUTPUT.PUT_LINE('Cel mai dificil puzzle rezolvat (cel cu rating-ul maxim): ' || v_max_rating);
+
+        DBMS_OUTPUT.PUT_LINE('Lista de puzzle-uri rezolvate de utilizator, împreună cu rating-ul lor (Index-by table):');
+        FOR i IN 1..v_numar_total_puzzleuri LOOP
+            DBMS_OUTPUT.PUT_LINE('ID Puzzle: ' || v_puzzleuriList(i).id_puzzle || ', Rating: ' || v_puzzleuriList(i).rating);
+        END LOOP;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Utilizatorul nu a rezolvat niciun puzzle.');
+    END IF;
+  END StatisticiPuzzle;
+  
+  PROCEDURE CheckUserCriteria(p_id_utilizator UtilizatoriTurnee.id_utilizator%TYPE) IS
+       v_user_id UtilizatoriTurnee.id_utilizator%TYPE;
+       v_payment_id Plati.id_plata%TYPE;
+    BEGIN
+       SELECT DISTINCT(id_utilizator)
+       INTO v_user_id
+       FROM UtilizatoriTurnee
+       WHERE id_utilizator = p_id_utilizator
+         AND id_turneu IN
+             (SELECT id_turneu
+              FROM Turnee
+              WHERE data_start >= TO_DATE('01-JAN-2023', 'DD-MON-YYYY'))
+         AND id_utilizator IN
+             (SELECT id_utilizator
+              FROM Utilizatori
+              WHERE (LENGTH(username) = 4 OR LENGTH(username) = 5)
+                AND id_utilizator IN
+                    (SELECT id_utilizator
+                     FROM UtilizatoriPUZZLES
+                     WHERE id_puzzle = 
+                           (SELECT id_puzzle
+                            FROM Puzzles
+                            WHERE Pozitie LIKE '%Ra1%')))
+         AND id_utilizator IN 
+             (SELECT DISTINCT(id_utilizator1)
+              FROM Prietenie
+              WHERE EXTRACT (MONTH FROM data_inceput) IN (3, 4, 6));
+    
+       DBMS_OUTPUT.PUT_LINE('Utilizatorul cu ID ' || v_user_id || ' corespunde criteriilor.');
+       
+       SELECT id_plata
+       INTO v_payment_id
+       FROM Plati 
+       WHERE p_id_utilizator = id_utilizator;
+       
+       DBMS_OUTPUT.PUT_LINE('ID Plata: ' || v_payment_id);
+       
+    EXCEPTION
+       WHEN NO_DATA_FOUND THEN
+          DBMS_OUTPUT.PUT_LINE('Utilizatorul cu ID ' || p_id_utilizator || ' nu corespunde criteriilor.');
+       WHEN TOO_MANY_ROWS THEN
+          DBMS_OUTPUT.PUT_LINE('Prea multe înregistrări întoarse pentru utilizator.');
+       WHEN OTHERS THEN
+          DBMS_OUTPUT.PUT_LINE('O eroare neașteptată a apărut: ' || SQLERRM);
+    END CheckUserCriteria;
+
+END cerinta14;
+/
+
+
+
+DECLARE
+  v_result VARCHAR2(200);
+BEGIN
+  v_result := cerinta14.ProcessUser(1); 
+  DBMS_OUTPUT.PUT_LINE(v_result);
+END;
+/
+
