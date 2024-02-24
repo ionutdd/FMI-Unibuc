@@ -1,0 +1,88 @@
+import Data.Char
+
+--1
+palindrom :: String -> Bool
+palindrom s = s == reverse s
+
+isVowel :: Char -> Bool
+isVowel c = c `elem` "AEIOUaeiou"
+
+countVowels :: String -> Int
+countVowels "" = 0
+countVowels (c:s) = (if isVowel c then 1 else 0 ) + countVowels s
+
+nrVocale :: [String] -> Int
+nrVocale [] = 0
+nrVocale (s:ss)
+  | palindrom s = countVowels s + nrVocale ss
+  | otherwise = nrVocale ss
+-- nrVocale ["sos", "civic", "palton", "desen", "aerisirea"] = 9
+
+--2
+f :: Int -> [Int] -> [Int]
+f _ [] = []
+f y (x:xs)
+  | even x = x:y: f y xs
+  | otherwise = x: f y xs
+-- f 3 [1,2,3,4,5,6] = [1,2,3,3,4,3,5,6,3]
+
+--3
+-- divizori 4 = [1,2,4]
+divizori :: Int -> [Int]
+divizori n = [d | d<-[1..n], n `mod` d == 0 ]
+
+--4
+listadiv :: [Int] -> [[Int]]
+listadiv l = [divizori n | n <- l]
+-- listadiv [1,4,6,8] = [[1],[1,2,4],[1,2,3,6],[1,2,4,8]]
+
+--5a
+inIntervalRec :: Int -> Int -> [Int] -> [Int]
+inIntervalRec _ _ [] = []
+inIntervalRec a b (x:xs)  = if a <= x && x<=b then x:inIntervalRec a b xs else inIntervalRec a b xs
+
+--5b
+inIntervalComp :: Int -> Int -> [Int] -> [Int]
+inIntervalComp a b l = [x | x<-l, a<=x && x<=b]
+-- inInterval 5 10 [1..15] == [5,6,7,8,9,10]
+-- inInterval 5 10 [1,3,5,2,8,-1] = [5,8]
+
+--6a
+pozitiveRec :: [Int] -> Int
+pozitiveRec [] = 0
+pozitiveRec (x:xs)
+  | x > 0 = 1 + pozitiveRec xs
+  | otherwise = pozitiveRec xs
+
+--6b
+pozitiveComp :: [Int] -> Int
+pozitiveComp l = length [n | n<-l, n > 0]
+-- pozitive [0,1,-3,-2,8,-1,6] == 3
+
+--7
+pozitiiImpareRec, pozitiiImpareComp :: [Int] -> [Int]
+
+--7a
+pozitiiImpareRecAux _ [] = []
+pozitiiImpareRecAux i (x:xs)
+    | odd x = i : pozitiiImpareRecAux (i+1) xs
+    | otherwise = pozitiiImpareRecAux (i+1) xs
+
+pozitiiImpareRec l = pozitiiImpareRecAux 0 l
+
+--7b
+pozitiiImpareComp l = [p | (el,p)<- zip l [0..], odd el]
+-- pozitiiImpare [0,1,-3,-2,8,-1,6,1] == [1,2,5,7]
+
+--8a
+multDigitsRec :: String -> Int
+multDigitsRec "" = 1
+multDigitsRec (c:s) = if isDigit c then digitToInt c * multDigitsRec s
+    else multDigitsRec s
+
+--8b
+multDigitsComp :: String -> Int
+multDigitsComp s = product [digitToInt c | c<-s, isDigit c]
+
+-- multDigits "The time is 4:25" == 40
+-- multDigits "No digits here!" == 1
