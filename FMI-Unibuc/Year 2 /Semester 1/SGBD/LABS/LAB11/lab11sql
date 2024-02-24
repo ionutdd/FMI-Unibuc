@@ -1,0 +1,79 @@
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PACKAGE e1_ido
+    AS 
+    --c)
+    FUNCTION nr_subalterni
+    (v_last_name employees.last_name%TYPE,
+    v_first_name employees.first_name%TYPE)
+    RETURN number;
+    
+    --f
+    CURSOR ang (v_job_id employees.job_id%TYPE)
+        RETURN employees%ROWTYPE;
+    
+    
+END e1_ido;
+/
+
+
+
+
+CREATE OR REPLACE PACKAGE BODY e1_ido AS
+    --f)
+    CURSOR ANG(v_job_id employees.job_id%TYPE)
+    RETURN employees%rowtype
+    IS (SELECT * from employees where job_id = v_job_id);
+    
+    BEGIN FOR i in E1.ido.ang (...)
+    LOOP DBMS_OUTPUT...
+    
+
+    --c)
+    FUNCTION nr_subalterni
+    (v_last_name employees.last_name%TYPE,
+    v_first_name employees.first_name%TYPE)
+    RETURN NUMBER
+    IS
+        v_employee_id employees.employee_id%TYPE;
+        v_subordinate_count NUMBER := 0;
+    BEGIN
+        SELECT employee_id INTO v_employee_id
+        FROM employees
+        WHERE last_name = v_last_name AND first_name = v_first_name;
+
+        SELECT COUNT(DISTINCT e.employee_id)
+        INTO v_subordinate_count
+        FROM employees e
+        START WITH e.manager_id = v_employee_id
+        CONNECT BY PRIOR e.employee_id = e.manager_id;
+
+        RETURN v_subordinate_count;
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            DBMS_OUTPUT.PUT_LINE('Angajatul cu numele ' || v_last_name || ' ' || v_first_name || ' nu a fost gasit ca si avand subalterni.');
+            RETURN NULL;
+    END nr_subalterni;
+    
+    
+END e1_ido;
+/
+
+
+
+DECLARE
+    v_count NUMBER;
+BEGIN
+    v_count := e1_ido.nr_subalterni('Kochhar', 'Neena');
+    
+    IF v_count IS NOT NULL THEN
+        DBMS_OUTPUT.PUT_LINE('Num?rul de subalterni directi si indirecti: ' || v_count);
+    END IF;
+END;
+/
+
+
+SELECT * FROM employees;
+
+
+

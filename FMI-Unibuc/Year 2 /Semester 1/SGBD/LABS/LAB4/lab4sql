@@ -1,0 +1,254 @@
+--9 din tema
+
+SELECT m.last_name, m.first_name, t.title, COUNT(*)
+FROM rental r
+RIGHT JOIN title_copy tc ON r.title_id = tc.title_id AND r.copy_id = tc.copy_id
+RIGHT JOIN title t ON t.title_id = tc.title_id
+CROSS JOIN member m
+GROUP BY m.last_name, m.first_name, t.title;
+
+
+--10 din tema
+
+SELECT m.member_id, MAX(m.last_name), MAX(m.first_name), nr_exemplar, COUNT(r.title_id) 
+FROM   (SELECT member_id, last_name, first_name, title_id || ' ' || copy_id AS nr_exemplar, copy_id, title_id  
+        FROM member, title_copy) m, rental r 
+WHERE  m.member_id = r.member_id(+) 
+AND    m.title_id = r.title_id(+) 
+AND    m.copy_id = r.copy_id(+) 
+GROUP BY m.member_id, nr_exemplar 
+ORDER BY 1,4; 
+
+
+--11 din tema
+
+WITH info AS 
+    (SELECT t.title_id, MAX(title), c.copy_id, MAX(status), COUNT(*) nr 
+    FROM   title t, title_copy c, rental r 
+    WHERE  t.title_id = c.title_id 
+    AND    c.copy_id = r.copy_id 
+    AND    c.title_id = r.title_id 
+    GROUP BY t.title_id, c.copy_id) 
+SELECT * 
+FROM   info i 
+WHERE  nr = (SELECT MAX(nr) 
+             FROM info 
+             WHERE title_id = i. title_id) 
+ORDER BY 1; 
+
+
+
+--Lab de azi (PL/SQL)
+
+SET SERVEROUTPUT ON; -- trebuie rulat o data la inceputul fiecarei sesiuni pt a merge DBMS_OUTPUT
+
+
+
+DECLARE 
+    V_NR NUMBER(5) := 5; --am initializat
+BEGIN 
+    V_NR := 10; --am suprascris
+    DBMS_OUTPUT.PUT_LINE(V_NR);
+END;
+/
+
+
+DECLARE 
+    V_NR1 NUMBER(5) := 5; --am initializat
+    V_NR2 V_NR1%TYPE; --trebuie instructiuni diferite, si anunta ca vreau ca V_NR2 sa fie ca acelasi tip ca V_NR1
+BEGIN 
+    V_NR1 := 10; --am suprascris
+    DBMS_OUTPUT.PUT_LINE(V_NR1);
+END;
+/
+
+
+<<BlocA>>
+DECLARE 
+    V_NR1 NUMBER := 1;
+    V_NR2 NUMBER := 2;
+BEGIN 
+    <<BlocB>>
+    DECLARE 
+        V_NR1 NUMBER := 3;
+        V_NR2 NUMBER := 4;
+    BEGIN
+        --V_NR1 --> 3
+        BlocA.V_NR1 := 5;
+    END;
+--V_NR1 --> 1
+END;
+/
+
+
+
+VARIABLE G_MESAJ VARCHAR2(50); -- se ruleaza inainte de oricebloc ca o var globala cu script
+DECLARE 
+    V_NR1 NUMBER(5) := 5; --am initializat
+    V_NR2 V_NR1%TYPE; --trebuie instructiuni diferite, si anunta ca vreau ca V_NR2 sa fie ca acelasi tip ca V_NR1
+BEGIN 
+    V_NR1 := 10; --am suprascris
+    DBMS_OUTPUT.PUT_LINE(V_NR1);
+    :G_MESAJ := 'HELLO';
+    DBMS_OUTPUT.PUT_LINE(:G_MESAJ);
+END;
+/
+
+
+
+DECLARE 
+    V_DEP departments.department_name%TYPE;
+BEGIN 
+    SELECT department_name 
+    INTO V_DEP --se executa selectul si ia val department_name si o pune in V_DEP; trebuie sa intoarca doar un singur rezultat!!!! (nu 0 nu mai multe)
+    FROM departments;
+END;
+/
+
+
+
+DECLARE
+ v_dep departments.department_name%TYPE;
+ nr_ang NUMBER;
+BEGIN
+ SELECT department_name, COUNT(*)
+ INTO v_dep, nr_ang
+ FROM employees e, departments d
+ WHERE e.department_id=d.department_id
+ GROUP BY department_name
+ HAVING COUNT(*) = (SELECT MAX(COUNT(*))
+ FROM employees
+GROUP BY department_id);
+ DBMS_OUTPUT.PUT_LINE('Departamentul '|| v_dep);
+ DBMS_OUTPUT.PUT_LINE('NR ang: '|| nr_ang);
+END;
+/
+
+
+
+--Instructiunea IF
+DECLARE
+ v_cod employees.employee_id%TYPE:=&p_cod;
+ v_bonus NUMBER(8);
+ v_salariu_anual NUMBER(8);
+BEGIN
+ SELECT salary*12 INTO v_salariu_anual
+ FROM employees
+ WHERE employee_id = v_cod;
+ 
+ IF v_salariu_anual>=200001
+    THEN v_bonus:=20000;
+    ELSIF v_salariu_anual BETWEEN 100001 AND 200000
+        THEN v_bonus:=10000;
+    ELSE v_bonus:=5000;
+ 
+END IF;
+DBMS_OUTPUT.PUT_LINE('Bonusul este ' || v_bonus);
+END;
+/
+
+
+--Se poate rescrie utilizand CASE
+CASE WHEN V_Salariu > 200001 THEN
+          V_BONUS := 20000;
+     WHEN ... THEN 
+     ELSE
+        V_BONUS := 5000;
+END CASE;
+
+
+
+--SQL % ROWCOUNT
+BEGIN
+    UPDATE ...
+    IF SQL % ROWCOUNT = 0 THEN ....   --intoarce nr de randuri afectate de ultimul query executat (update, insert, delete etc, select)
+    END IF;
+    
+    
+    
+--Bucla infinita LOOP 
+
+LOOP 
+    EXIT WHEN... --opt1 care e mai simpla de scris / citit
+    --sau IF ... THEN EXIT;   asta e opt 2
+END LOOP;  --loop care iese cand ajunge la cdt de exit
+
+
+
+
+--While
+  
+WHILE i < 30 LOOP
+...
+END LOOP;
+
+
+
+
+--For
+
+FOR i IN REVERSE 1 : 30 LOOP --de lam 30 la 1 daca avem reverse. fara reverse e de la 1 la 30. putem sa avem si EXIT ca sa iesim mai repede
+...
+END LOOP;
+
+
+
+--GOTO (nu e recomandat)
+
+GOTO nume_eticheta;
+
+
+
+--Exemple de redeclarari ale variabilelor in blocuri diferite
+DECLARE
+numar number(3):=100;
+mesaj1 varchar2(255):='text 1';
+mesaj2 varchar2(255):='text 2';
+BEGIN
+ DECLARE
+ numar number(3):=1;
+ mesaj1 varchar2(255):='text 2';
+ mesaj2 varchar2(255):='text 3';
+ BEGIN
+ numar:=numar+1;
+ mesaj2:=mesaj2||' adaugat in sub-bloc';
+  DBMS_OUTPUT.PUT_LINE(numar);
+  DBMS_OUTPUT.PUT_LINE(mesaj1);
+ END;
+numar:=numar+1;
+mesaj1:=mesaj1||' adaugat un blocul principal';
+mesaj2:=mesaj2||' adaugat in blocul principal';
+DBMS_OUTPUT.PUT_LINE(numar);
+  DBMS_OUTPUT.PUT_LINE(mesaj1);
+  DBMS_OUTPUT.PUT_LINE(mesaj2);
+END;
+
+
+
+--exceptii si tratarea lor
+
+DECLARE 
+    V_NUME member.last_name % TYPE := '&NUME';
+    V_MEMBER_ID member.member_id % TYPE;
+    V_NR_FILME NUMBER(5);
+BEGIN 
+    SELECT INTO member_id 
+    INT V_MEMBER_ID
+    FROM member
+    WHERE last_name = V_NUME;
+    
+    SELECT COUNT(DISTINCT title_id)  --o sa dea 0 nu NULL
+    INTO V_NR_FILME
+    FROM rental 
+    WHERE member_id = V_MEMBER_ID;
+    
+    DMBS_OUTPUT.PUTLINE(V_NR_FILME);
+
+EXCEPTION 
+    WHEN NO_DATA_FOUND THEN DBMS_OUTPUT.PUTLINE('Nu exista');
+    WHEN TOO_MANY_ROWS THEN DBMS_OUTPUT.PUTLINE('Exista mai multi cu acelasi nume');
+    WHEN OTHERS THEN DBMS_OUTPUT.PUTLINE('Orice alta eroare');
+END;
+
+
+
