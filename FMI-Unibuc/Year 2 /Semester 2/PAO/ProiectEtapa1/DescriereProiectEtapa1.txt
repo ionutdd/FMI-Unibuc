@@ -1,0 +1,63 @@
+Aplicatie Chess.com
+
+1. Clasa Utilizator
+	-> username
+	-> email
+
+2. Clasa Conexiune
+	-> utilizator1
+	-> utilizator2
+
+3. Clasa Conversatie
+	-> conexiune
+	-> dataPrimulMesaj
+
+4. Clasa Rating 
+	-> utilizator
+	-> rapid
+	-> blitz
+	-> bullet
+
+5. Clasa Turneu
+	-> nr_utilizatori
+	-> data_start
+	-> durata
+	-> utilizatori (vector de utilizatori)
+
+6. Clasa Plata
+	-> utilizator
+	-> suma
+	-> data_tranzactie
+
+7. Clasa Partida
+	-> conexiune
+	-> timp_de_joc
+	-> pgnPartida   (pgn = portable game notation)
+
+8. Clasa MesajAplicatie 
+	-> utilizator 
+	-> titlu
+	-> text
+
+9. Clasa Prietenie
+	-> conexiune
+	-> data_inceput
+
+
+Interogari / Actiuni:
+
+1. Actiune de adaugare de conversatie (primeste ca parametru 2 utilizatori si dataPrimMesaj).
+2. Actiune de adaugare de prietenie (primeste ca parametru 2 utilizatori si o data oarecare).
+3. Sa se afiseze utilizatorii care au participat la macar 2 turnee.
+4. Sa se creeze un vector ordonat descrescator care sa contina utilizatori in functie de rating-ul lor de blitz.
+5. Sa se afiseze utilizatorul a carui suma totala de rating-uri este cea mai mare.
+6. Sa se creeze un vector cu mesaje de tipul: "Utilizatorul nume_utilizator este membru categorie_membru" astfel:
+	- daca a platit mai mult de 50$ -> categorie_membru = bronze
+	- daca a platit mai mult de 100$ -> categorie_membru = gold
+	- daca a platit mai mult de 500$ -> categorie_membru = diamond
+	- nu afisez utiliatorul daca a platit mai putin de 50$
+7. Sa se afiseze toti utilizatorii cu care un utilizator citit de la tastatura are conversatii.
+8. Sa se afiseze toti utilizatorii care au ca mesaj o invitatie la turneu (in textul mesajului exista 'turneu').
+9. Sa se afiseze toate prieteniile care au inceput dupa data de 31.12.2023 (incepand din anul 2024).
+10. Sa se afiseze toate partidele care au avut cel putin 20 de mutari. Vor fi afsate partidele sub forma
+"Jucator1 a jucat cu Jucator2 o partida cu cel putin 20 de mutari".
