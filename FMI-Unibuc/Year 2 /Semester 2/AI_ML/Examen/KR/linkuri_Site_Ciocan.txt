@@ -1,0 +1,14 @@
+Linkuri utile
+
+https://repl.it/@IrinaCiocan/cautare-BFDFDFI-complet#main.py
+https://repl.it/@IrinaCiocan/uniform-cost-search#main.py
+https://repl.it/@IrinaCiocan/a-star#main.py
+https://replit.com/@IrinaCiocan/a-star-optimizat#main.py
+https://replit.com/@IrinaCiocan/ida-star#main.py
+https://repl.it/@IrinaCiocan/problemablocurilor#main.py (E implementat cu BF si A*)
+https://replit.com/@IrinaCiocan/8-puzzle#main.py
+https://repl.it/@IrinaCiocan/exemplu-afisare-timp-folosit (cum calculam timpul de executie a unei secvente de cod)
+https://repl.it/@IrinaCiocan/problema-canibalilor-si-misionarilor#main.py
+https://repl.it/@IrinaCiocan/exemplu-iterare-prin-folder
+http://irinaciocan.ro/inteligenta_artificiala/python-comprehensions.php la secțiunea cu argumentele programului, respectiv timeout
+http://irinaciocan.ro/inteligenta_artificiala/cum-rezolvam-o-problema.php modul general de abordare a unei probleme
