@@ -1,0 +1,109 @@
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 1 canibali 3 misionari  ......  (Dreapta) 2 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 2 canibali 3 misionari  ......  (Dreapta) 1 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 0 canibali 3 misionari  ......  (Dreapta) 3 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 1 canibali 3 misionari  ......  (Dreapta) 2 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 0 canibali si 2 misionari.
+(Stanga) 1 canibali 1 misionari  ......  (Dreapta) 2 canibali  2 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 1 misionari.
+(Stanga) 2 canibali 2 misionari  ......  (Dreapta) 1 canibali  1 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 0 canibali si 2 misionari.
+(Stanga) 2 canibali 0 misionari  ......  (Dreapta) 1 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 3 canibali 0 misionari  ......  (Dreapta) 0 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 1 canibali 0 misionari  ......  (Dreapta) 2 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 2 canibali 0 misionari  ......  (Dreapta) 1 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 0 canibali 0 misionari  ......  (Dreapta) 3 canibali  3 misionari
+
+
+
+-----------------Urmatoarea solutie
+
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 1 canibali 3 misionari  ......  (Dreapta) 2 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 2 canibali 3 misionari  ......  (Dreapta) 1 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 0 canibali 3 misionari  ......  (Dreapta) 3 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 1 canibali 3 misionari  ......  (Dreapta) 2 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 0 canibali si 2 misionari.
+(Stanga) 1 canibali 1 misionari  ......  (Dreapta) 2 canibali  2 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 1 misionari.
+(Stanga) 2 canibali 2 misionari  ......  (Dreapta) 1 canibali  1 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 0 canibali si 2 misionari.
+(Stanga) 2 canibali 0 misionari  ......  (Dreapta) 1 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 3 canibali 0 misionari  ......  (Dreapta) 0 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 1 canibali 0 misionari  ......  (Dreapta) 2 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 0 canibali si 1 misionari.
+(Stanga) 1 canibali 1 misionari  ......  (Dreapta) 2 canibali  2 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 1 canibali si 1 misionari.
+(Stanga) 0 canibali 0 misionari  ......  (Dreapta) 3 canibali  3 misionari
+
+
+
+-----------------Urmatoarea solutie
+
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 1 canibali si 1 misionari.
+(Stanga) 2 canibali 2 misionari  ......  (Dreapta) 1 canibali  1 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 0 canibali si 1 misionari.
+(Stanga) 2 canibali 3 misionari  ......  (Dreapta) 1 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 0 canibali 3 misionari  ......  (Dreapta) 3 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 1 canibali 3 misionari  ......  (Dreapta) 2 canibali  0 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 0 canibali si 2 misionari.
+(Stanga) 1 canibali 1 misionari  ......  (Dreapta) 2 canibali  2 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 1 misionari.
+(Stanga) 2 canibali 2 misionari  ......  (Dreapta) 1 canibali  1 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 0 canibali si 2 misionari.
+(Stanga) 2 canibali 0 misionari  ......  (Dreapta) 1 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 3 canibali 0 misionari  ......  (Dreapta) 0 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 1 canibali 0 misionari  ......  (Dreapta) 2 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Dreapta, (Stanga<barca>) cu 1 canibali si 0 misionari.
+(Stanga) 2 canibali 0 misionari  ......  (Dreapta) 1 canibali  3 misionari
+
+>>> Barca s-a deplasat de la malul Stanga, (Dreapta<barca>) cu 2 canibali si 0 misionari.
+(Stanga) 0 canibali 0 misionari  ......  (Dreapta) 3 canibali  3 misionari
+
