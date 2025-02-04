@@ -1,0 +1,168 @@
+What it is to be an API?
+
+Pentru asta trebuie sa intelegem cum functioneaza HTTP (adica internetul).
+
+Browserul este un client. Server-ul e undeva prin internet. Clientul prin internet apeleaza server-ul.
+Server-ul ofera un response. Contine Status Code, Headers si Optional Body.
+
+Request => Method + Target
+	  => Headers
+	  => Optional Body
+
+GET, POST <-> Method
+Request URL <-> Target
+User Agent -> 
+Referer -> De unde a venit request-ul respectiv
+
+
+Respone => Status Code
+	  => Headers
+	  => Optional Body
+
+Status code: ex 200 ok
+Content length, cache stuff etc.
+
+
+
+REST (Representational State Transfer)
+
+-> mod de a scrie API-uri incepand cam din 2007-08
+
+	 GET/POST/PUT/DELETE            HTTP Request
+Client -------------------> Rest API -------------------> Server 
+	 <------------------		 <-------------------
+	  JSON/XML/HTML			 HTTP Response
+
+1. HTTP VERBS (methods)
+GET -> read
+POST -> create
+PUT / PATCH -> update
+DELETE -> delete
+
+2. Resources
+Exemplu pentru carti:
+
+[Book]
+[Author]
+--------
+Endpoint-uri (o combinatie de verb cu resurs):
+
+GET /book[s]
+
+response:
+[
+	{
+		"id": 1,
+		"title": "Pride & Prejudice",
+		"author": {
+			"name": "Jane Auten",
+			...
+		}
+	},
+	{
+		"id": 2,
+		"title": "Pride & Prejudice part II",
+		"author": {
+			"name": "Jane Auten",
+			...
+		}
+	}
+
+]
+
+GET /book/1
+
+response:
+{
+	"id": 1,
+	"title": "Pride & Prejudice",
+	"author": {
+		"name": "Jane Auten",
+		...
+	}
+}
+
+POST /book
+body:
+{
+	"id": 3,
+	"title": "Pride & Prejudice part 3",
+	"author": {
+		"name": "Jane Auten",
+		...
+	}
+}
+
+response:
+201
+{
+	"id": 3,
+	"title": "Pride & Prejudice part 3",
+	"author": {
+		"name": "Jane Auten",
+		...
+	}
+}
+
+PUT /book/1        ---> asta e un atomic update, stie API-ul exact ce sa modifice
+body:
+{
+	"title": "Pride & Prejudice bla bla",
+}
+
+response:
+201
+{
+	"id": 3,
+	"title": "Pride & Prejudice part 3",
+	"author": {
+		"name": "Jane Auten",
+		...
+	}
+}
+
+DELETE /book/1
+
+GET /author/1
+{
+	name: "Jane Austen",
+	...
+}
+
+POST author
+{
+	id: 2,
+	name: "Moise"
+}
+
+PUT book/1/author/2
+
+POST author/1/books
+{
+
+}
+
+POST /session
+{
+	user: "",
+	pass: ""
+}
+
+response:
+JWT TOKEN
+
+DELETE /session
+
+
+3. HATEOAS (Hypermedia as the engine of application state)
+-> cam neimportant
+
+
+
+- What is Express.JS?
+
+IT's a web framework. What's that?
+Este o platforma pe care putem face aplicatii web (care de fapt presupune API)
+-> e ok pentru proiecte non enterprise
+
+- Next.JS are si mai multe feature-uri

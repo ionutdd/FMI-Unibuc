@@ -1,0 +1,30 @@
+History of JS:
+
+- inventat prin anii 90 de CEO Mozila
+- sa faca chestii interactive in browser
+- sa mearga la fel si intr-un server environment totusi
+
+Proprietati ale limbajului de programare:
+
+- e weird cand vine vorba de comparare (== sau !=), asta pentru ca dinaamically typed nu statically typed
+- solutia e === sau negat !==
+- JIT compiled
+- first-class functions adica trateaza o functie ca pe o variabila const foo = () = {}
+- prototype-based e un tip de OOP in care clasele nu sunt definite specific
+- are si cuvantul cheie class, dar nimeni nu o foloseste
+- functiile pot fi instantate
+- single-threaded, dar are aceasta chestie de async 
+- functional programming
+- next.js framework de node.js care are clase si chestii si e stabil
+- typescript e un superset de JS dar adauga foarte multe featureuri pentru lucruri enterprise (adica echipe mari ce lucreaza mult timp la proiect)
+
+
+GIT Flow
+
+commit pe master/main => un release si ii dam un tag de genul 1.0
+avem si develop branch care e intotdeauna curat deasemenea
+avem si feature branch pentru fiecare feature si dupa dam merge pe develop ex: baga_in_cos pus in develop si autentificare pus in develop
+Intre FeatureX si Develop se intampla tot procesul de QA, CR, testare automata etc.
+
+Cea mai buna resursa de documentatie de JS: mdn Javascript 
+ 						 de Node: API-ul de la Node

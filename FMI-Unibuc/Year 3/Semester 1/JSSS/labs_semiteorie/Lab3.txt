@@ -1,0 +1,27 @@
+Javascript e single threaded, dar are si aspectul de asincronicitate.
+
+Event Loop
+
+-> executam niste call-uri si sunt executate dintr-un cal stack
+-> WebAPIs
+
+Callback -> O functie (sau handler) care este apelata cand se executa o alta chestie
+
+Callback hell -> trebuie evitate asa multe intendentations 
+
+ex: 
+fs.reddir(source, function (err, files) {   --> aici e callback-ul
+	if (err) {
+		---
+		} else {
+			---
+			if (err) {
+etc...
+
+Solutia:
+
+Promises:
+
+myPromise
+  .then(...)
+  .then(...)

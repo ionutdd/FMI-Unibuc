@@ -1,0 +1,5 @@
+https://github.com/arnia-unibuc/boilerplate
+
+Sa pornim de acolo ^^ pt proiect
+
+Daca la migratie vrem sa adaugam alte campuri pt user, facem o noua migratie.

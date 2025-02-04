@@ -1,0 +1,153 @@
+I) GraphQL
+
+Sa se instaleze chrome extenstion Altair.
+
+Astazi facem basics (un API), dar relativ superficial
+
+Va mai fi un singur laborator (pe github) cel mai probabil, mai aproape de proiect.
+
+Link la graphql:
+
+/graphql 
+si metoda e get sau post dar 99% e get
+
+asta-i tot, nu ca la REST.
+
+Totul este type. 
+Schema (queries, mutations, subscriptions(?))   ala e cu ? pt ca oficial nu e, dar practic e si el
+
+Query + Mutation sunt root types. Un root type e un type dedicat la radacina schemei.
+! -> non nullable adica required
+
+query {
+	repository{owner: "laravel", name: "laravel")      laravel e un framework de php, poate cel mai popular
+	{
+		createdAt
+		# comment here
+		description
+		stargazerCount
+		forkCount
+		id
+		collaborators(first: 1) {   
+			nodes {
+				name
+				repositories {     --> repositories e de acelasi tip cu repository de sus doar ca acum e pentru colaboratorul nostu
+					createdAt    --> de aceea se numeste Graph din GraphQL  
+					description
+					stargazerCount
+					forkCount
+					id
+				}
+			}
+		}
+		languages(first: 5) {
+			totalCount
+			nodes {
+				name
+			}
+		}
+	}
+}
+
+
+repository e un field si asa arata GraphQl, e un query language.
+
+GRaphQl cu ajutorul INTROSPECTION face documentatia automat pentru API.
+
+
+Ceea ce in REST:
+/user/1?fields=first_name,last_name    si orice alt camp care vreau din obiectul user
+IN schimb in GraphQL, pot sa specific exact ce sa primesc.
+
+Exista si Mutations in GraphQl.
+
+Definirea unei scheme:
+
+type Character {   --> asta e un object type
+	name: String!
+	appearsIn: [Episode!]!
+}
+
+schema {
+	query: MyQueryType
+	mutation: MyMutationType
+	subscription: MySubscriptionType
+}
+
+Types:
+
+Int, Float, String, Boolean, ID
+Avem si enum, list, interface.
+
+Ex la Interface:
+
+interface Character {
+	id: ID!
+	name: String!
+	friends: [Character]
+	appearsIn: [Episode]!
+}
+
+si dupa:
+
+type Human implements Character {
+	...
+}
+
+Union type:
+
+union SearchResult = Human | Droid | Starship
+
+si dupa se apeleaza cu on HUMAN ...
+
+Input Object:
+
+input ReviewInput {
+	stars: Int!
+	commentary: String
+{
+
+type Mutation {
+	createReview(episode: Episode, review: ReviewInput!): Review
+}
+
+
+Resolver: (modul cum isi ia el datele)
+
+1) Resolveri impliciti:
+
+sa zicem ca avem acest tree de GraphQL:
+
+user {
+	id   // => idResolver
+	name	// => nameResolver
+	age	// => ageresolver
+}
+
+const resolver = (user, args, context, resolveinfo) => {    --> ultimii 2 sunt parametri mai avansati
+	return user.id;  
+}
+
+2) Custom:
+
+const resolver = (user, args, context, resolveinfo) => {
+	const response = await fetch('http://www.nasa.gov/astronauts');
+
+	return response.astronauts[1];
+}
+
+deci putem face ce vrem cu acesti resolveri, sa citim din BD etc.
+
+
+II) Express
+Din urma trebuia sa spuna astea, dar a uitat.
+
+Middleware -> e ceva ce e intre initierea de cerere si raspunsul server-ului
+
+Ex: Authentication Middleware (pot sa o pun pe toate rutele, sau pe unele mai importante etc)
+    Citit Cookies
+
+JWT -> Json Web Token
+    -> are un Header, Payload si Semnatura
+
+JWT -> 3 segmente despartite print punct si sunt JSON-uri encoded base 64

@@ -1,0 +1,131 @@
+Astazi vorbim de chestiuni de finete.
+
+
+Nested Types:
+
+Sa zicem ca avem:
+
+
+
+
+
+import express from 'express';
+import { createHandler } from 'graphql-http/lib/use/express';
+import graphql from 'graphql';
+import { queryType } from './graphql/rootTypes/queryType.js';
+import mutationType from './graphql/rootTypes/mutationType.js';
+
+const schema = new graphql.GraphQLSchema({
+    query: queryType,
+    mutation: mutationType,
+});
+
+const app = express();
+app.use(express.json());
+
+app.all(
+    '/graphql',
+    createHandler({
+        schema: schema,
+        context: {
+            user: 1
+        }
+    })
+)
+
+export default app;
+
+
+
+
+
+
+Query
+	user (id) -> UserType
+	review (id) -> ReviewType
+	reviews -> [ReviewType]
+
+
+UserType
+	id -> int
+	name -> string
+	friends: [UserType]
+
+ReviewType
+	id -> int (root)
+	text -> string
+	score -> int (validation min 0 max 5)
+	author -> UserType -> authorResolver(root) => {
+		return db.User.find(root.user_id); // merge peste tot asa si nu e optimizat (problema n + 1)
+
+		// in schimb mai bine facem asa
+
+		userDataLoader.add(root.user_id);
+
+		return new Promise({
+			resolve: (user) => {
+				userDataLoader.load();
+				return userDataLoader.get(user.id);
+			}
+		})
+	}
+
+
+====
+
+review -> ReviewResolver -> (root, args, context, resolveInfo) => {
+	if (!context.user()) {
+		throw new error "Not authenticated";
+	}
+	return db.find(args.id);
+	{
+		id: 1
+		text: "hello",
+		score: 5,
+		user_id: 5
+	}
+}
+
+reviews -> ReviewsResolver -> (_) => {
+	return db.Review.all();
+}
+
+userDataLoarder => {
+	let ids = [];
+	let resolved = [];	
+
+	add: (id) => {
+		ids.push(id);
+	}
+
+	load: => {
+		if (resolved.length === 0) {
+			const users = return db.User.findWhereIn(ids); // SELECT * FROM users WHERE id IN (1, 2, 3 ...)
+			resolved = users;
+		}
+		return resolved;
+	}
+
+	get: (id) => {
+		return resolved.find((user) => user.id === id);
+	}
+}
+
+
+
+Un avantaj al GraphQl e ca e graf.
+Sa aiba sens ca folosim GraphQl si e mai bine decat REST. Adica sa fim siguri ca putem lua date nested.
+Sa fie structura layered.
+
+
+Authorization:
+
+Delegate authorization logic to the business logic layer.
+Sa nu punem Business Logic in Resolver. Resolver-ul sa tina de GraphQL.
+
+
+
+
+La laborator am facut peste tema 4.
+Pe 8.01 putem sa facem prima predare daca suntem gata repede. 
+Probabil mai avem un lab (de ORM) maxim doua, adica si unul de putting it all together.

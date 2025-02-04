@@ -1,0 +1,32 @@
+40% activitate 
+
+-> cea de data trecuta, astea de azi, si se mai adauga una maxim doua
+
+60% proiect final
+
+Cerinte proiect final:
+
+-> GraphQL API
+	-> Cel putin 4 query-uri
+		-> Sa contina nested types
+	-> Cel putin 4 Mutatii
+		-> Sa contina input types 
+-> ORM
+	-> Trecut prin toate tipurile de relatii
+		-> 1:1
+		-> 1:many
+		-> many:many
+-> Sa porneasca
+-> Proiectul se preda pe git (in ultimele 2 cursuri, depinde)
+-> Fiecare va raspunde la niste intrebari 
+-> Vom avea si o parte de autentificare, dar cica o facem impreuna si de aceea nu e in cerintele oficiale.
+
+
+Shop Online "Emag" 
+Sa ne concentram sa facem cerintele minime, nu e nevoie de mai mult pentru a face chiar tot magazinul online.
+
+
+
+
+
+

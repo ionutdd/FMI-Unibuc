@@ -1,0 +1,58 @@
+Echipe de 3-4
+40% activitate si 60% proiect (nici ei nu stiu exact)
+Vor fi cam 11-12 puncte
+Pentru notare va fi foarte important sa fie bifate toate cerintele
+Un API cu Graph QL pe Node JS sa implementam pentru un business (Twitter, etc) sa avem niste flowuri (ex checkout)
+Sa mearga proiectul, si fiecare membru din echipa o sa primeasca intrebari.
+Activitatea -> sub forma unor laboratoare pe Github si le trimiteai acolo si ruleaza niste unit test-uri (vreo 4 sau 5 laboratoare de genul)
+
+
+Pentru a porni un proiect:
+
+npm install     dupa multe enter-uri    asta ne va face package.json si package-lock.json
+npm install express                     asta ne va face node_modules
+
+Ce e npm? E Node Package Manager
+
+npmjs.com
+
+
+Ca sa rulam: node index.js
+
+
+Instalam din nvm windows github de la Overview si dupa .exe
+
+Dupa deschidem terminal --> nvm 
+Si dupa nvm install 22
+nvm use 22
+nvm alias default 22  (asta ca sa nu specificam de fiecare data nvm use 22)
+node -v
+
+
+Pentru a da remove:
+
+rm -rd node_modules si delete la package.json si lock la fel 
+
+
+Sau pentru wsl in terminal:
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+
+Atentie!!!!!!!! Daca rulez in WSL trebuie rulata comanda asta in terminal: wsl hostname -I
+Si imi va da un IP: 172.30.114.20   (in cazul meu)
+Si dupa 172.30.114.20:8080 in browser.
+
+
+npm install express
+Adaugam "type": "module",  la linia 5 din package.json ca sa ne mearga import-ul
+
+Ca sa inchidem server-ul, neaparat cu Ctrl+C
+
+npx te lasa sa rulezi "fara sa intalezi" orice pachet de pe npm fara sa il instalezi local
+
+ex: npx nodemon  --> asta face ca sa nu mai trebuiasca sa inchid serverul de fiecare data pentru schimbari
+
+
+npm run script descris in package.json 
+kill -9 port

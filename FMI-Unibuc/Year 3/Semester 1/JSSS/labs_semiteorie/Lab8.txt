@@ -1,0 +1,115 @@
+Baze de date
+
+"chestii foarte down to earth care ne intereseaza in proiect"
+"vom avea o librarie ca requirement la proiect"
+
+Teorema CAP:
+
+
+- putem alege 2 din cele 3 calitati (Consistency, Availability, Partition-Tolerance -> System continues to operate despite network failures)
+- alegem tehnologia in functie de requirement-urile tehnice ale proiectului si nu invers
+
+SqlServer, MariaDV(CA)
+riak, cassandra, CouchDB (AP)
+mongoDB, redis, Apache Hbase (CP)
+
+
+Principiile ACID (cat de torough e o BD):
+
+
+1) Atomicity: Each DB transaction must completely succeed or completely fail. Partial success isn't allowed.
+		aka handle the error si rollback etc.
+2) Consistency: The DBMS should progress from one valid state to another. 
+3) Isolation: If a transaction is taking place, other users will have to wait until it ends.
+4) Durability: The data operation that was part of the transaction must be reflected in nonvolatile storage (eg. hard-disk) and persist after the transaction successfully completes.
+
+
+
+SQL - Relational Data Model                 vs:              NoSQL - Document Data Model 
+
+- RDBMS									- Distributed DBMS
+- Scalabilitate aprox verticala (servere mari complexe)	- Scalabilitate aprox orizontala (niste raspberry pi-uri acolo simple dar care lucreaza cu paralelism)
+- Schema predefinita / stabila					- Schema dinamica
+- Modeleaza bine date in principale relationale			- Modeleaza bine date de tip document / big-data
+- Query-uri complexe							- Se preteaza mai bine la queri-uri simple
+
+Elastic Search = tehnologie bazata pe apache lucim (indexare, si raspunde la query-uri), in principiu un layer de JAVA peste care devine un API rest si se ocupa si de clustering
+	-> este full tech search 
+	-> analytics (toate log-urile le bagi in ES, Kebana sau AWS Opean Search se conecteaza pe ES si iti da datele frumos)
+
+
+ORM: Object-relational mapping  (ceva gen Entity Framework de la C# .Net)
+
+- layer de abstractie intre business logic si mediul de persistare a datelor (DB)   (adica nu string-uri de query-uri ci obiecte)
+- Motivation:
+	- Nu vrem sa avem query-uri SQL / altceva amestecate cu restul codului (Single Responsability Principle, DRY)
+	- Nu vrem sa repetam acelasi query in multiple locuri de cod (DRY)
+	- Vrem sa avem abilitatea de a lucra la nivel abstract cu obiecte
+	- Vrem sa avem functionalitate cat mai rapid pentru prototipare (RAD = Rapid Application Development)
+	- Nu scaleaza intotdeauna foarte bine in raport cu complexitatea proiectului, dar in majoritatea cazurilor prezinta un punct bun de inceput.
+
+
+ORMs: Active Record vs Data Mapper pattern
+
+Model = Abstractizarea unei tabele intr-un obiect
+
+Varianta a)
+	- Clasele de tip Model primesc prin inheritance functionalitate de manipulare a DB
+	
+user = new User();
+user->username = "ceva";
+user->save();
+
+Varianta b)
+	- Calsele de tip Model nu stiu nimic de query-uri
+	- Un serviciu de tip EntityManager se ocupa de layer de persistenta direct
+
+user - new User();
+user0>username = "ceva";
+EntityManager::persist(user);
+
+Bonus: Repository Pattern
+	- e un layer special in care query-urile sunt permise, in restul codebase-ului lucrandu-se doar cu obiecte dumb / containere de date.
+
+
+Best Practices pt DB:
+
+1) Schema as Code (nu chestii de gen da-mi si mie fisierul SQL ca nu mi merge BD) (vine sub forma de migratii)
+2) Schimbari incrementale, care se dezvolta odata cu codul, in mod agil
+3) Date de test pentru medii de dezvoltare locale (seed-uri care populeaza baza de date ca sa fie mai usor sa testam)
+4) Quey-uri des intalnite extrase intr-un layer de acces de date (repository)
+5) Tooling pt a automatiza procesul de refresh al DB in timp util (rulez o comanda sa fie fresh totul)
+
+
+Normalizare = Nu am niciodata nicaieri date redundante
+Denormalizare -> facem cand ne costa join-ul (ca e scump) si deci avem nevoie de performance
+
+
+Relatie: Polymorphic 1:1
+
+Ex: Un media poate fi ori video ori picture. In acest caz nu mai merge cu foreign key ci cu un mediable_type care e numele tabelei o referentiez.
+
+
+Vom lucra la proiect cu SQL Lite. Libraria de ORM e Sequelize. Folosim v6.
+
+npm install sequelize sqlite3
+
+Si pentru sequelize cli:
+
+npm install --save-dev sequelize-cli
+npx sequelize --help (pentru manual de comenzi)
+
+npx sequelize init
+
+Atentie acum trebuie sa updatam cong/config.json in:
+
+{
+  "development": {
+    "storage": "database.sqlite",
+    "dialect": "sqlite"
+  }
+}
+
+
+npx sequelize model:generate --name User --attributes name:string,password:string
+npx sequelize db:migrate
